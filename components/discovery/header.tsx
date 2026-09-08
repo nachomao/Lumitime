@@ -52,6 +52,7 @@ export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, q
             maxLength={100}
           />
           <InputGroupAddon align="inline-start"><Search /></InputGroupAddon>
+          {!query && <span className="compact-search-placeholder" aria-hidden="true">搜索应用</span>}
           {query && (
             <InputGroupAddon align="inline-end">
               <InputGroupButton size="icon-sm" aria-label="清空搜索" onClick={() => { onQueryChange(''); inputRef.current?.focus() }}><X /></InputGroupButton>

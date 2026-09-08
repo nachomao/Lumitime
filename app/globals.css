@@ -114,13 +114,17 @@
 .site-header { display: flex; align-items: center; justify-content: space-between; min-height: 80px; position: relative; }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--foreground); }
 .header-search { flex: 1; display: flex; justify-content: flex-end; }
-.compact-search-field[data-slot='input-group'] { width: 280px; height: 40px; border-radius: 999px; background: var(--glass); color: var(--foreground); box-shadow: inset 0 1.5px 1px -1px var(--glass-light), inset 1px 0 1px -1px var(--glass-light), 0 8px 24px -10px var(--shadow); transition: background .3s, box-shadow .3s, transform .3s, width .3s; }
-.compact-search-field[data-slot='input-group']:focus-within { width: 360px; background: color-mix(in srgb, var(--surface) 42%, transparent); border-color: var(--glass-light); box-shadow: inset 0 1px 1px var(--glass-light), 0 0 0 5px color-mix(in srgb, var(--snow) 9%, transparent), 0 10px 40px var(--shadow); }
+.compact-search-field[data-slot='input-group'] { width: 170px; height: 40px; border-radius: 999px; background: var(--glass); color: var(--foreground); box-shadow: inset 0 1.5px 1px -1px var(--glass-light), inset 1px 0 1px -1px var(--glass-light), 0 8px 24px -10px var(--shadow); transition: background .45s cubic-bezier(.22,1,.36,1), box-shadow .45s cubic-bezier(.22,1,.36,1), width .52s cubic-bezier(.22,1,.36,1) .1s; }
+.compact-search-field[data-slot='input-group']:hover,
+.compact-search-field[data-slot='input-group']:focus-within { width: 260px; background: color-mix(in srgb, var(--surface) 42%, transparent); border-color: var(--glass-light); box-shadow: inset 0 1px 1px var(--glass-light), 0 0 0 5px color-mix(in srgb, var(--snow) 9%, transparent), 0 10px 40px var(--shadow); transition-delay: 0s; }
 .compact-search-field [data-slot='input-group-control'] { height: 100%; font-size: 14px; color: var(--foreground); box-shadow: none; }
-.compact-search-field input::placeholder { color: var(--muted-foreground); }
+.compact-search-field input::placeholder { color: transparent; }
 .compact-search-field [data-align='inline-start'] { padding-left: 16px; padding-right: 5px; }
 .compact-search-field [data-align='inline-start'] > svg { width: 18px; height: 18px; color: var(--secondary-foreground); }
 .compact-search-field [data-align='inline-end'] { padding-right: 12px; }
+.compact-search-placeholder { position: absolute; left: 50%; top: 50%; z-index: 1; pointer-events: none; color: var(--muted-foreground); font-size: 14px; line-height: 1; transform: translate(-50%, -50%); filter: blur(0); opacity: 1; transition: transform .38s cubic-bezier(.22,1,.36,1), filter .38s ease, opacity .3s ease; }
+.compact-search-field:hover .compact-search-placeholder,
+.compact-search-field:focus-within .compact-search-placeholder { transform: translate(-50%, calc(-50% - 9px)); filter: blur(4px); opacity: 0; transition-delay: .1s; }
 .bottom-navigation-dock { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 20; display: flex; align-items: center; gap: 12px; justify-content: center; }
 .bottom-navigation-dock .main-navigation { margin: 0; }
 .bottom-navigation-dock .appearance-controls { margin: 0; }
@@ -206,7 +210,7 @@
 .app-icon::after { position: absolute; inset: 1px; border-radius: inherit; content: ''; pointer-events: none; background: linear-gradient(145deg,color-mix(in srgb,var(--snow) 24%,transparent), transparent 48%); }
 .app-icon img { width: 58%; height: 58%; object-fit: contain; }
 .app-icon[data-brand='figma'] img { width: 43%; }
-.app-icon[data-brand='figma'], .app-icon[data-brand='raycast'], .app-icon[data-brand='spotify'] { background: linear-gradient(145deg,color-mix(in srgb,var(--ink) 76%,var(--slate)),var(--ink)); border-color: color-mix(in srgb,var(--snow) 27%,transparent); box-shadow: inset 0 1px 1px color-mix(in srgb,var(--snow) 34%,transparent),inset 0 -2px 2px var(--ink),0 8px 18px -4px color-mix(in srgb,var(--ink) 60%,transparent); }
+.app-icon[data-brand='figma'], .app-icon[data-brand='raycast'], .app-icon[data-brand='spotify'], .app-icon[data-brand='1password'], .app-icon[data-brand='cursor'] { background: linear-gradient(145deg,color-mix(in srgb,var(--ink) 76%,var(--slate)),var(--ink)); border-color: color-mix(in srgb,var(--snow) 27%,transparent); box-shadow: inset 0 1px 1px color-mix(in srgb,var(--snow) 34%,transparent),inset 0 -2px 2px var(--ink),0 8px 18px -4px color-mix(in srgb,var(--ink) 60%,transparent); }
 .app-icon[data-brand='openai'] { background: linear-gradient(145deg, var(--snow), color-mix(in srgb,var(--teal) 35%,var(--snow))); }
 .app-icon-large { width: 72px; height: 72px; border-radius: 22px; }
 .library-section { padding-top: 24px; scroll-margin-top: 26px; }
