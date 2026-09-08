@@ -1,9 +1,11 @@
 'use client'
 
+import { type RefObject } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { Compass, LayoutGrid, Layers3, Moon, SlidersHorizontal, Sun } from 'lucide-react'
+import { Command, Compass, LayoutGrid, Layers3, Moon, Search, SlidersHorizontal, Sun, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group'
 import { cn } from '@/lib/utils'
 
 export type Section = 'discover' | 'library' | 'collections'
@@ -14,12 +16,16 @@ const navigation = [
   { id: 'collections' as const, label: '精选集', icon: Layers3 },
 ]
 
-export function Header({ section, onNavigate, dark, onToggleTheme, onSettings }: {
+export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, query, onQueryChange, onSearch, inputRef }: {
   section: Section
   onNavigate: (section: Section) => void
   dark: boolean
   onToggleTheme: () => void
   onSettings: () => void
+  query: string
+  onQueryChange: (query: string) => void
+  onSearch: () => void
+  inputRef: RefObject<HTMLInputElement | null>
 }) {
   return (
     <motion.header className="site-header" initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }}>
@@ -28,27 +34,30 @@ export function Header({ section, onNavigate, dark, onToggleTheme, onSettings }:
         <span className="brand-name">拾光<span className="brand-dot">.</span></span>
         <span className="brand-tagline">好工具，好时光</span>
       </a>
-      <nav className="glass main-navigation" aria-label="主导航">
-        {navigation.map(({ id, label, icon: Icon }) => (
-          <a key={id} href={`#${id}`} className={cn('navigation-link', section === id && 'is-active')} aria-current={section === id ? 'page' : undefined} onClick={(event) => { event.preventDefault(); onNavigate(id) }}>
-            {section === id && <motion.span className="navigation-indicator" layoutId="navigation-indicator" transition={{ type: 'spring', stiffness: 380, damping: 30 }} />}
-            <Icon aria-hidden="true" className="navigation-icon" />
-            <span>{label}</span>
-          </a>
-        ))}
-      </nav>
-      <div className="header-actions">
-        <div className="glass appearance-controls">
-          <Button variant="ghost" size="icon-lg" className="round-control" aria-label={dark ? '切换浅色模式' : '切换深色模式'} onClick={onToggleTheme}>
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span key={dark ? 'moon' : 'sun'} initial={{ rotate: -60, opacity: 0, scale: 0.6 }} animate={{ rotate: 0, opacity: 1, scale: 1 }} exit={{ rotate: 60, opacity: 0, scale: 0.6 }} transition={{ duration: 0.18 }}>
-                {dark ? <Moon /> : <Sun />}
-              </motion.span>
-            </AnimatePresence>
-          </Button>
-          <Separator orientation="vertical" className="appearance-divider" />
-          <Button variant="ghost" size="icon-lg" className="round-control" aria-label="个性化设置" onClick={onSettings}><SlidersHorizontal /></Button>
-        </div>
+      <div className="header-search">
+        <InputGroup className="glass compact-search-field">
+          <InputGroupInput
+            id="software-search"
+            ref={inputRef}
+            value={query}
+            onChange={(event) => onQueryChange(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.nativeEvent.isComposing || event.keyCode === 229) return
+              if (event.key === 'Enter') { event.preventDefault(); onSearch() }
+              if (event.key === 'Escape') { onQueryChange(''); inputRef.current?.blur() }
+            }}
+            placeholder="搜索应用"
+            aria-label="搜索软件、工具"
+            autoComplete="off"
+            maxLength={100}
+          />
+          <InputGroupAddon align="inline-start"><Search /></InputGroupAddon>
+          {query && (
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton size="icon-sm" aria-label="清空搜索" onClick={() => { onQueryChange(''); inputRef.current?.focus() }}><X /></InputGroupButton>
+            </InputGroupAddon>
+          )}
+        </InputGroup>
       </div>
     </motion.header>
   )

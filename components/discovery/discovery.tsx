@@ -8,7 +8,6 @@ import { Header, type Section } from '@/components/discovery/header'
 import { Hero } from '@/components/discovery/hero'
 import { Collections } from '@/components/discovery/collections'
 import { AppLibrary } from '@/components/discovery/app-library'
-import { Dock } from '@/components/discovery/dock'
 import { InfoDialog, SettingsDialog, SoftwareDialog } from '@/components/discovery/dialogs'
 import { Button } from '@/components/ui/button'
 import { type Category, type Software } from '@/lib/software'
@@ -80,7 +79,7 @@ export function Discovery() {
         <a className="skip-link" href="#library">跳转到软件库</a>
         <div className="wallpaper" aria-hidden="true"><Image src="/images/blue-hour-coast.png" className="wallpaper-night" alt="" fill priority sizes="100vw" /><Image src="/images/alpine-lake.png" className="wallpaper-day" alt="" fill sizes="100vw" /><div className="wallpaper-wash" /></div>
         <div className={cn('page-container', selectedApp && 'app-is-open')}>
-          <Header section={section} onNavigate={navigate} dark={dark} onToggleTheme={() => setDark((value) => !value)} onSettings={() => setSettingsOpen(true)} />
+          <Header section={section} onNavigate={navigate} dark={dark} onToggleTheme={() => setDark((value) => !value)} onSettings={() => setSettingsOpen(true)} query={query} onQueryChange={setQuery} onSearch={() => navigate('library')} inputRef={inputRef} />
           <main>
             <Hero query={query} onQueryChange={setQuery} onQuickSearch={quickSearch} inputRef={inputRef} onSearch={() => navigate('library')} />
             <Collections onSelect={selectCollection} motionEnabled={motionEnabled} />
@@ -91,7 +90,6 @@ export function Discovery() {
             <div className="footer-links"><Button variant="ghost" onClick={() => setInfo('about')}>关于拾光</Button><Button variant="ghost" onClick={() => setInfo('help')}>使用说明</Button></div>
           </motion.footer>
         </div>
-        <Dock onOpen={setSelectedApp} onLibrary={() => { setQuery(''); setCategory('all'); navigate('library') }} onSettings={() => setSettingsOpen(true)} motionEnabled={motionEnabled} />
         <SoftwareDialog app={selectedApp} onClose={() => setSelectedApp(null)} />
         <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} dark={dark} onDarkChange={setDark} animations={animations} onAnimationsChange={setAnimations} scenery={scenery} onSceneryChange={setScenery} />
         <InfoDialog kind={info} onClose={() => setInfo(null)} />
