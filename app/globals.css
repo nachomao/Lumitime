@@ -210,7 +210,6 @@
 .featured-app-2 .app-icon { width: 104px; height: 104px; border-radius: 30px; }
 .featured-app .app-icon img { width: 52%; height: 52%; }
 .collection-creative, .collection-intelligence { padding: 21px 23px 19px; display: flex; flex-direction: column; }
-.collection-intelligence { background-color: color-mix(in srgb, var(--teal) 7%, transparent); }
 .compact-widget-heading { display: flex; align-items: center; justify-content: space-between; }
 .compact-widget-heading > svg { color: var(--muted-foreground); }
 .creative-apps { display: flex; align-items: center; justify-content: center; gap: 15px; flex: 1; }
