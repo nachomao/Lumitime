@@ -1,7 +1,6 @@
 'use client'
 
 import { useDeferredValue, useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
 import { MotionConfig, motion, useReducedMotion } from 'motion/react'
 import { Compass } from 'lucide-react'
 import { Header, type Section } from '@/components/discovery/header'
@@ -77,7 +76,7 @@ export function Discovery() {
     <MotionConfig reducedMotion={motionEnabled ? 'never' : 'always'} transition={{ type: 'spring', stiffness: 300, damping: 28 }}>
       <div id="discover" className={cn('discovery-page', !scenery && 'without-scenery')}>
         <a className="skip-link" href="#library">跳转到软件库</a>
-        <div className="wallpaper" aria-hidden="true"><Image src="/images/blue-hour-coast.png" className="wallpaper-night" alt="" fill priority sizes="100vw" /><Image src="/images/alpine-lake.png" className="wallpaper-day" alt="" fill sizes="100vw" /><div className="wallpaper-wash" /></div>
+        <div className="wallpaper" aria-hidden="true"><div className="wallpaper-grid" /></div>
         <div className={cn('page-container', selectedApp && 'app-is-open')}>
           <Header section={section} onNavigate={navigate} dark={dark} onToggleTheme={() => setDark((value) => !value)} onSettings={() => setSettingsOpen(true)} query={query} onQueryChange={setQuery} onSearch={() => navigate('library')} inputRef={inputRef} />
           <main>

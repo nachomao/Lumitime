@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import { motion } from 'motion/react'
 import { ArrowUpRight, ChevronRight, Palette, Sparkles, WandSparkles } from 'lucide-react'
 import { AppIcon } from '@/components/discovery/app-icon'
@@ -131,8 +130,7 @@ export function Collections({ onSelect, motionEnabled }: { onSelect: (category: 
       </div>
       <div className="collections-grid">
         <GlassWidget className="collection-card collection-daily" label="让日常，轻盈一点。探索效率办公工具" onClick={() => onSelect('productivity')} motionEnabled={motionEnabled}>
-          <Image className="collection-scenery" src="/images/alpine-lake.png" alt="" fill sizes="(max-width: 700px) 90vw, 40vw" />
-          <div className="collection-photo-shade" />
+          <div className="collection-feature-surface" aria-hidden="true" />
           <div className="collection-copy">
             <span className="collection-eyebrow"><Sparkles className="size-4" aria-hidden="true" />编辑精选</span>
             <h3 className="featured-widget-title">让日常，<br />轻盈一点。</h3>

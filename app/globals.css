@@ -60,6 +60,8 @@
   --glass-edge: color-mix(in srgb, var(--snow) 66%, transparent);
   --glass-light: color-mix(in srgb, var(--snow) 80%, transparent);
   --shadow: color-mix(in srgb, var(--ink) 14%, transparent);
+  --workspace-line: color-mix(in srgb, var(--ink) 7%, transparent);
+  --featured-panel: color-mix(in srgb, var(--ink) 88%, var(--blue));
   --radius: 1.2rem;
 }
 
@@ -83,6 +85,7 @@
   --glass-edge: color-mix(in srgb, var(--snow) 27%, transparent);
   --glass-light: color-mix(in srgb, var(--snow) 49%, transparent);
   --shadow: color-mix(in srgb, var(--ink) 38%, transparent);
+  --workspace-line: color-mix(in srgb, var(--snow) 5%, transparent);
 }
 
 @layer base {
@@ -97,14 +100,9 @@
 
 .discovery-page { min-height: 100svh; position: relative; isolation: isolate; }
 .wallpaper { position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; background: var(--background); }
-.wallpaper > img { object-fit: cover; object-position: center 22%; transition: opacity 1s, transform 1.2s; }
-.wallpaper-night { opacity: 0; }
-.wallpaper-day { opacity: 1; }
-.dark .wallpaper-night { opacity: 1; }
-.dark .wallpaper-day { opacity: 0; }
-.wallpaper-wash { position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--background) 24%, transparent), color-mix(in srgb, var(--background) 8%, transparent) 43%, color-mix(in srgb, var(--background) 38%, transparent)); }
-.dark .wallpaper-wash { background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 16%, transparent), color-mix(in srgb, var(--ink) 43%, transparent) 43%, color-mix(in srgb, var(--ink) 28%, transparent) 75%, color-mix(in srgb, var(--ink) 35%, transparent)); }
-.without-scenery .wallpaper > img { opacity: 0; }
+.wallpaper-grid { position: absolute; inset: -1px; opacity: .5; background-image: linear-gradient(var(--workspace-line) 1px, transparent 1px), linear-gradient(90deg, var(--workspace-line) 1px, transparent 1px); background-position: center top; background-size: 64px 64px; transition: opacity .5s ease; }
+.dark .wallpaper-grid { opacity: .42; }
+.without-scenery .wallpaper-grid { opacity: 0; }
 .page-container { max-width: 1248px; margin-inline: auto; padding-inline: 40px; padding-bottom: 112px; transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .4s; transform-origin: 50% 35vh; }
 .page-container.app-is-open { transform: scale(.974); opacity: 0.92; }
 /* Paired prefixed declarations are dropped by the preview CSS compiler. */
@@ -175,9 +173,9 @@
 .glass-widget::after { position: absolute; content: ''; inset: 0; border-radius: inherit; z-index: 4; pointer-events: none; opacity: 0; background: radial-gradient(ellipse at var(--shine-x,50%) var(--shine-y,0%), color-mix(in srgb, var(--snow) 20%, transparent), transparent 65%); transition: opacity .35s; }
 .glass-widget:hover::after { opacity: 1; }
 .collection-card { height: 198px; overflow: hidden; border-radius: 30px; }
-.collection-daily { color: var(--snow); }
-.collection-scenery { object-fit: cover; object-position: center 52%; opacity: .72; z-index: -3; }
-.collection-photo-shade { position: absolute; inset: 0; z-index: -2; background: linear-gradient(100deg, color-mix(in srgb,var(--ink) 80%,transparent), color-mix(in srgb,var(--ink) 27%,transparent)); }
+.collection-daily { color: var(--snow); background: var(--featured-panel); border-color: color-mix(in srgb, var(--blue) 28%, var(--glass-edge)); box-shadow: inset 0 1px color-mix(in srgb, var(--snow) 16%, transparent), 0 18px 46px -24px var(--shadow); }
+.collection-feature-surface { position: absolute; inset: 0; z-index: -2; background: var(--featured-panel); }
+.collection-feature-surface::after { position: absolute; content: ''; inset: 0 0 0 48%; border-left: 1px solid color-mix(in srgb, var(--snow) 9%, transparent); background-image: linear-gradient(color-mix(in srgb, var(--snow) 6%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--snow) 6%, transparent) 1px, transparent 1px); background-size: 36px 36px; }
 .collection-copy { position: relative; padding: 22px 26px; height: 100%; }
 .collection-eyebrow { display: flex; align-items: center; gap: 7px; font-size: 14px; color: inherit; font-weight: 500; }
 .featured-widget-title { font-size: 29px; font-weight: 620; line-height: 1.4; letter-spacing: -.8px; padding-top: 12px; }
