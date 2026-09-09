@@ -30,9 +30,15 @@ export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, q
   return (
     <motion.header className="site-header" initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }}>
       <a href="#discover" className="brand" onClick={(event) => { event.preventDefault(); onNavigate('discover') }} aria-label="拾光首页">
-        <span className="brand-mark"><Compass aria-hidden="true" strokeWidth={1.6} /></span>
-        <span className="brand-name">拾光<span className="brand-dot">.</span></span>
-        <span className="brand-tagline">好工具，好时光</span>
+        <span className="brand-mark" aria-hidden="true">
+          <span className="brand-mark-piece" />
+          <span className="brand-mark-piece" />
+          <span className="brand-mark-piece" />
+        </span>
+        <span className="brand-lockup">
+          <span className="brand-name">拾光</span>
+          <span className="brand-latin">Lumitime</span>
+        </span>
       </a>
       <div className="header-search">
         <InputGroup className="glass compact-search-field">
