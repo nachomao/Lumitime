@@ -82,7 +82,7 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
         </div>
       </div>
       <div className="category-scroll">
-        <GlassSurface className="category-glass-surface" width="max-content" height={48} borderRadius={24} displace={0.7} distortionScale={-140} redOffset={0} greenOffset={8} blueOffset={16} brightness={58} opacity={0.9} backgroundOpacity={0.06} saturation={1.18}>
+        <GlassSurface className="category-glass-surface" width="max-content" height={48} borderRadius={24} displace={0.7} distortionScale={-140} redOffset={0} greenOffset={0} blueOffset={0} brightness={58} opacity={0.9} backgroundOpacity={0} saturation={1}>
           <ToggleGroup value={[category]} onValueChange={(values) => { if (values[0]) { onCategoryChange(values[0] as Category); setShowAll(false) } }} className="category-toggle" aria-label="软件分类">
             {categories.map(({ id, icon: Icon }) => (
               <ToggleGroupItem key={id} value={id}>
