@@ -82,7 +82,7 @@ export function Discovery() {
           <div className="wallpaper-wash" />
         </div>
         <div className={cn('dialog-backdrop-effect', (selectedApp || settingsOpen || info) && 'is-visible')} aria-hidden="true" />
-        <div className={cn('page-container', selectedApp && 'app-is-open')}>
+        <div className="page-container">
           <Header section={section} onNavigate={navigate} dark={dark} onToggleTheme={() => setDark((value) => !value)} onSettings={() => setSettingsOpen(true)} query={query} onQueryChange={setQuery} onSearch={() => navigate('library')} inputRef={inputRef} />
           <main>
             <Hero />
