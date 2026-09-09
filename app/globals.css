@@ -136,6 +136,11 @@
 .brand-lockup { display: flex; flex-direction: column; gap: 3px; line-height: 1; }
 .brand-name { font-size: 20px; font-weight: 680; letter-spacing: -.3px; }
 .brand-latin { color: var(--muted-foreground); font-size: 10px; font-weight: 620; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
+.brand-divider { display: block; flex: 0 0 1px; width: 1px; height: 30px; background: linear-gradient(180deg, transparent, var(--muted-foreground) 16%, var(--muted-foreground) 84%, transparent); opacity: .78; transform: skewX(-14deg); }
+.brand-signature { display: flex; flex: 0 0 43px; width: 43px; height: 33px; flex-direction: column; justify-content: center; gap: 5px; line-height: 1; text-transform: uppercase; }
+.brand-signature-line { display: flex; width: 100%; align-items: center; justify-content: space-between; }
+.brand-signature-nacho { color: var(--foreground); font-size: 8px; font-weight: 760; }
+.brand-signature-neko { color: var(--muted-foreground); font-size: 10px; font-weight: 700; }
 .main-navigation { display: flex; align-items: center; padding: 5px; border-radius: 999px; }
 .navigation-link { position: relative; isolation: isolate; display: flex; align-items: center; justify-content: center; gap: 7px; width: 102px; height: 38px; border-radius: 999px; font-size: 14px; color: var(--muted-foreground); transition: color .2s; }
 .navigation-link:hover, .navigation-link.is-active { color: var(--foreground); }
