@@ -137,12 +137,11 @@
 .brand-name { font-size: 20px; font-weight: 680; letter-spacing: -.3px; }
 .brand-latin { color: var(--muted-foreground); font-size: 10px; font-weight: 620; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
 .brand-divider { display: block; flex: 0 0 1px; width: 1px; height: 26px; margin-inline: -2px; background: linear-gradient(180deg, transparent, var(--muted-foreground) 18%, var(--muted-foreground) 82%, transparent); opacity: .52; transform: skewX(14deg); transform-origin: center top; animation: brand-divider-write .48s cubic-bezier(.65,0,.35,1) .42s both; }
-.brand-signature { position: relative; display: flex; flex: 0 0 68px; width: 68px; height: 30px; align-items: center; color: var(--foreground); font-family: var(--font-caveat), cursive; font-size: 21px; font-weight: 600; letter-spacing: -.055em; line-height: 1; white-space: nowrap; transform: rotate(-2deg) translateY(-1px); transform-origin: center; }
-.brand-signature-letter { display: inline-block; color: transparent; opacity: 0; -webkit-text-stroke: .55px currentColor; clip-path: polygon(-14% -14%, -14% -14%, -28% 114%, -28% 114%); transform: rotate(3deg) scale(.94); transform-origin: left bottom; animation: brand-letter-write .3s cubic-bezier(.4,0,.2,1) both; }
-.brand-signature::after { content: ''; position: absolute; right: 0; bottom: 1px; width: 56px; height: 7px; border-bottom: 1px solid currentColor; border-radius: 0 0 58% 42%; opacity: .42; transform: rotate(-3deg) skewX(-18deg) scaleX(0); transform-origin: left center; animation: brand-signature-flourish .36s cubic-bezier(.65,0,.35,1) 2.02s forwards; }
+.brand-signature { display: flex; flex: 0 0 76px; width: 76px; height: 30px; align-items: center; color: var(--foreground); transform: rotate(-2deg) translateY(-1px); transform-origin: center; }
+.brand-signature-svg { display: block; width: 76px; height: 30px; overflow: visible; }
+.brand-signature-stroke { fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 423; stroke-dashoffset: 423; vector-effect: non-scaling-stroke; animation: brand-signature-write 1.85s cubic-bezier(.45,.02,.25,1) .98s forwards; }
 @keyframes brand-divider-write { from { opacity: 0; transform: skewX(14deg) scaleY(0); } to { opacity: .52; transform: skewX(14deg) scaleY(1); } }
-@keyframes brand-letter-write { 0% { color: transparent; opacity: 0; clip-path: polygon(-14% -14%, -14% -14%, -28% 114%, -28% 114%); transform: rotate(3deg) scale(.94); } 16% { opacity: 1; } 72% { color: transparent; -webkit-text-stroke-color: currentColor; clip-path: polygon(-14% -14%, 116% -14%, 102% 114%, -28% 114%); transform: rotate(0) scale(1); } 100% { color: currentColor; opacity: 1; -webkit-text-stroke-color: transparent; clip-path: polygon(-14% -14%, 116% -14%, 102% 114%, -28% 114%); transform: rotate(0) scale(1); } }
-@keyframes brand-signature-flourish { from { transform: rotate(-3deg) skewX(-18deg) scaleX(0); } to { transform: rotate(-3deg) skewX(-18deg) scaleX(1); } }
+@keyframes brand-signature-write { from { stroke-dashoffset: 423; } to { stroke-dashoffset: 0; } }
 .main-navigation { display: flex; align-items: center; padding: 5px; border-radius: 999px; }
 .navigation-link { position: relative; isolation: isolate; display: flex; align-items: center; justify-content: center; gap: 7px; width: 102px; height: 38px; border-radius: 999px; font-size: 14px; color: var(--muted-foreground); transition: color .2s; }
 .navigation-link:hover, .navigation-link.is-active { color: var(--foreground); }
@@ -465,10 +464,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
-  .brand-signature-letter { color: currentColor; opacity: 1; -webkit-text-stroke-color: transparent; clip-path: none; transform: none; }
-  .brand-signature::after { transform: rotate(-3deg) skewX(-18deg) scaleX(1); }
+  .brand-signature-stroke { stroke-dashoffset: 0; }
 }
 html[data-motion='reduced'], html[data-motion='reduced'] * { scroll-behavior: auto !important; }
 html[data-motion='reduced'] *, html[data-motion='reduced'] *::before, html[data-motion='reduced'] *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
-html[data-motion='reduced'] .brand-signature-letter { color: currentColor; opacity: 1; -webkit-text-stroke-color: transparent; clip-path: none; transform: none; }
-html[data-motion='reduced'] .brand-signature::after { transform: rotate(-3deg) skewX(-18deg) scaleX(1); }
+html[data-motion='reduced'] .brand-signature-stroke { stroke-dashoffset: 0; }
