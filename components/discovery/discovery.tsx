@@ -81,7 +81,7 @@ export function Discovery() {
           <Image className="wallpaper-image" src="/images/lumitime-glass-wallpaper.png" alt="" fill priority sizes="100vw" />
           <div className="wallpaper-wash" />
         </div>
-        <div className={cn('page-container', selectedApp && 'app-is-open')}>
+        <div className="page-container">
           <Header section={section} onNavigate={navigate} dark={dark} onToggleTheme={() => setDark((value) => !value)} onSettings={() => setSettingsOpen(true)} query={query} onQueryChange={setQuery} onSearch={() => navigate('library')} inputRef={inputRef} />
           <main>
             <Hero />

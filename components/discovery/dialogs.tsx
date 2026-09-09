@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import { ArrowUpRight, Check, Compass, ExternalLink, Keyboard, ShieldCheck, Sparkles } from 'lucide-react'
 import { AppIcon } from '@/components/discovery/app-icon'
 import { Badge } from '@/components/ui/badge'
@@ -12,18 +13,26 @@ import { categoryLabels, type Software } from '@/lib/software'
 import { cn } from '@/lib/utils'
 
 export function SoftwareDialog({ app, onClose }: { app: Software | null; onClose: () => void }) {
+  const previousApp = useRef<Software | null>(app)
+
+  useEffect(() => {
+    if (app) previousApp.current = app
+  }, [app])
+
+  const displayedApp = app ?? previousApp.current
+
   return (
     <Dialog open={Boolean(app)} onOpenChange={(open) => { if (!open) onClose() }}>
       <DialogContent className="glass-modal software-dialog">
-        {app && <>
+        {displayedApp && <>
           <DialogHeader>
-            <div className="detail-heading"><AppIcon icon={app.icon} large /><div className="detail-title-group"><DialogTitle>{app.name}</DialogTitle><DialogDescription>{categoryLabels[app.category]} · {app.pricing}</DialogDescription></div></div>
+            <div className="detail-heading"><AppIcon icon={displayedApp.icon} large /><div className="detail-title-group"><DialogTitle>{displayedApp.name}</DialogTitle><DialogDescription>{categoryLabels[displayedApp.category]} · {displayedApp.pricing}</DialogDescription></div></div>
           </DialogHeader>
-          <p className="detail-description">{app.detail}</p>
-          <div className="detail-tags">{app.tags.map((tag) => <Badge key={tag} variant="secondary">{tag}</Badge>)}</div>
+          <p className="detail-description">{displayedApp.detail}</p>
+          <div className="detail-tags">{displayedApp.tags.map((tag) => <Badge key={tag} variant="secondary">{tag}</Badge>)}</div>
           <Separator />
-          <div className="detail-platforms"><h3>支持平台</h3><div>{app.platforms.map((platform) => <span key={platform}><Check className="size-3.5" aria-hidden="true" />{platform}</span>)}</div></div>
-          <a href={app.url} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: 'lg' }), 'visit-website')}>前往官方网站<ArrowUpRight data-icon="inline-end" /></a>
+          <div className="detail-platforms"><h3>支持平台</h3><div>{displayedApp.platforms.map((platform) => <span key={platform}><Check className="size-3.5" aria-hidden="true" />{platform}</span>)}</div></div>
+          <a href={displayedApp.url} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: 'lg' }), 'visit-website')}>前往官方网站<ArrowUpRight data-icon="inline-end" /></a>
           <p className="detail-footnote"><ShieldCheck className="size-3.5" aria-hidden="true" />仅导航至官网，价格与可用性请以官方为准。</p>
         </>}
       </DialogContent>
