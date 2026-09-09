@@ -79,7 +79,6 @@ export function Discovery() {
         <a className="skip-link" href="#library">跳转到软件库</a>
         <div className="wallpaper" aria-hidden="true">
           <Image className="wallpaper-image" src="/images/picui-wallpaper.jpg" alt="" fill priority sizes="100vw" />
-          <div className="wallpaper-wash" />
         </div>
         <div className={cn('dialog-backdrop-effect', (selectedApp || settingsOpen || info) && 'is-visible')} aria-hidden="true" />
         <div className="page-container">
