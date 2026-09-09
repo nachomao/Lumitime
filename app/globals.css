@@ -136,11 +136,11 @@
 .brand-lockup { display: flex; flex-direction: column; gap: 3px; line-height: 1; }
 .brand-name { font-size: 20px; font-weight: 680; letter-spacing: -.3px; }
 .brand-latin { color: var(--muted-foreground); font-size: 10px; font-weight: 620; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
-.brand-divider { display: block; flex: 0 0 1px; width: 1px; height: 30px; background: linear-gradient(180deg, transparent, var(--muted-foreground) 16%, var(--muted-foreground) 84%, transparent); opacity: .78; transform: skewX(14deg); }
-.brand-signature { display: flex; flex: 0 0 39px; width: 39px; height: 33px; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: var(--foreground); font-size: 9px; font-weight: 680; line-height: 1; text-transform: uppercase; }
-.brand-signature-line { display: block; white-space: nowrap; }
-.brand-signature-nacho { letter-spacing: .12em; }
-.brand-signature-neko { color: var(--muted-foreground); letter-spacing: .36em; }
+.brand-divider { display: block; flex: 0 0 1px; width: 1px; height: 26px; margin-inline: -2px; background: linear-gradient(180deg, transparent, var(--muted-foreground) 18%, var(--muted-foreground) 82%, transparent); opacity: .52; transform: skewX(14deg); }
+.brand-signature { display: flex; flex: 0 0 41px; width: 41px; height: 30px; flex-direction: column; align-items: stretch; justify-content: center; gap: 2px; color: var(--foreground); font-size: 11px; font-weight: 650; line-height: 1.1; }
+.brand-signature-line { display: block; white-space: nowrap; letter-spacing: .02em; }
+.brand-signature-nacho { align-self: flex-start; }
+.brand-signature-neko { align-self: flex-end; color: var(--muted-foreground); letter-spacing: .08em; }
 .main-navigation { display: flex; align-items: center; padding: 5px; border-radius: 999px; }
 .navigation-link { position: relative; isolation: isolate; display: flex; align-items: center; justify-content: center; gap: 7px; width: 102px; height: 38px; border-radius: 999px; font-size: 14px; color: var(--muted-foreground); transition: color .2s; }
 .navigation-link:hover, .navigation-link.is-active { color: var(--foreground); }
@@ -379,6 +379,10 @@
   .site-header { min-height: 82px; }
   .brand-name { font-size: 19px; }
   .brand-mark { grid-template-columns: 7px 13px; width: 24px; }
+  .header-search { min-width: 0; padding-left: 12px; }
+  .compact-search-field[data-slot='input-group'],
+  .compact-search-field[data-slot='input-group']:hover,
+  .compact-search-field[data-slot='input-group']:focus-within { width: 100%; max-width: 170px; }
   .main-navigation { display: none; }
   .appearance-controls { padding: 3px; }
   .hero { padding-block: 24px 28px; }

@@ -40,9 +40,9 @@ export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, q
           <span className="brand-latin">Lumitime</span>
         </span>
         <span className="brand-divider" aria-hidden="true" />
-        <span className="brand-signature font-mono" aria-hidden="true">
-          <span className="brand-signature-line brand-signature-nacho">NACHO</span>
-          <span className="brand-signature-line brand-signature-neko">NEKO</span>
+        <span className="brand-signature" aria-hidden="true">
+          <span className="brand-signature-line brand-signature-nacho">Nacho</span>
+          <span className="brand-signature-line brand-signature-neko">Neko</span>
         </span>
       </a>
       <div className="header-search">
