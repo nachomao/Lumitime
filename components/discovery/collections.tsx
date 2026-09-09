@@ -11,16 +11,26 @@ const FEATURED_ICON_LIBRARY = Array.from(new Set(software.map((app) => app.icon)
 const INITIAL_FEATURED_ICONS = ['linear', 'notion', 'raycast']
 const WIPE_TRANSITION = { duration: 1.15, ease: [0.65, 0, 0.35, 1] as const }
 const PARTICLES = [
+  { origin: 4, x: -14, y: 8, delay: 0.12 },
   { origin: 8, x: -17, y: -12, delay: 0.02 },
+  { origin: 13, x: 9, y: -8, delay: 0.28 },
   { origin: 18, x: -11, y: 9, delay: 0.2 },
+  { origin: 23, x: 15, y: 13, delay: 0.36 },
   { origin: 28, x: 8, y: -15, delay: 0.1 },
+  { origin: 34, x: -7, y: -10, delay: 0.24 },
   { origin: 39, x: -14, y: 16, delay: 0.32 },
+  { origin: 44, x: 10, y: 8, delay: 0.06 },
   { origin: 49, x: 17, y: -9, delay: 0.16 },
+  { origin: 55, x: -16, y: -14, delay: 0.3 },
   { origin: 60, x: 12, y: 14, delay: 0.38 },
+  { origin: 66, x: 7, y: -7, delay: 0.14 },
   { origin: 71, x: -8, y: -18, delay: 0.26 },
+  { origin: 76, x: -15, y: 10, delay: 0.4 },
   { origin: 81, x: 18, y: 7, delay: 0.08 },
+  { origin: 86, x: -6, y: 15, delay: 0.22 },
   { origin: 90, x: 11, y: -12, delay: 0.3 },
-  { origin: 96, x: -9, y: 13, delay: 0.42 },
+  { origin: 94, x: 14, y: 10, delay: 0.18 },
+  { origin: 98, x: -9, y: 13, delay: 0.42 },
 ]
 
 function pickRandomIconGroup(previousIcons: string[]) {
