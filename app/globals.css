@@ -194,9 +194,12 @@
 .featured-app-0 { top: 18px; right: 20px; }
 .featured-app-1 { left: 0; top: 45px; }
 .featured-app-2 { right: 25px; bottom: -15px; }
-.featured-app-0 .app-icon { transform: rotate(13deg); width: 72px; height: 72px; border-radius: 21px; }
-.featured-app-1 .app-icon { transform: rotate(-15deg); width: 94px; height: 94px; border-radius: 27px; }
-.featured-app-2 .app-icon { transform: rotate(13deg); width: 104px; height: 104px; border-radius: 30px; }
+.featured-app-0 .featured-app-stage { transform: rotate(13deg); }
+.featured-app-1 .featured-app-stage { transform: rotate(-15deg); }
+.featured-app-2 .featured-app-stage { transform: rotate(13deg); }
+.featured-app-0 .app-icon { width: 72px; height: 72px; border-radius: 21px; }
+.featured-app-1 .app-icon { width: 94px; height: 94px; border-radius: 27px; }
+.featured-app-2 .app-icon { width: 104px; height: 104px; border-radius: 30px; }
 .featured-app .app-icon img { width: 52%; height: 52%; }
 .collection-creative, .collection-intelligence { padding: 21px 23px 19px; display: flex; flex-direction: column; }
 .collection-intelligence { background-color: color-mix(in srgb, var(--teal) 7%, transparent); }
