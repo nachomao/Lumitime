@@ -136,6 +136,7 @@
 .brand-lockup { display: flex; flex-direction: column; gap: 3px; line-height: 1; }
 .brand-name { font-size: 20px; font-weight: 680; letter-spacing: -.3px; }
 .brand-latin { color: var(--muted-foreground); font-size: 10px; font-weight: 620; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
+.brand-signature-group { display: flex; align-items: center; gap: 11px; margin-left: -5px; transform: scale(1.08); transform-origin: left center; }
 .brand-divider { display: block; flex: 0 0 1px; width: 1px; height: 26px; margin-inline: -2px; background: linear-gradient(180deg, transparent, var(--muted-foreground) 18%, var(--muted-foreground) 82%, transparent); opacity: .52; transform: skewX(14deg); transform-origin: center top; animation: brand-divider-write .48s cubic-bezier(.65,0,.35,1) .42s both; }
 .brand-signature { position: relative; display: flex; flex: 0 0 68px; width: 68px; height: 30px; align-items: center; color: var(--foreground); transform: rotate(-2deg) translateY(-1px); transform-origin: center; }
 .brand-signature-svg { display: block; width: 72px; height: 30px; overflow: visible; }
