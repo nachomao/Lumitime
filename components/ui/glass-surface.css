@@ -1,0 +1,48 @@
+.glass-surface {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.glass-surface__filter {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  z-index: -1;
+}
+
+.glass-surface__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.glass-surface--svg {
+  background: hsl(0 0% 100% / var(--glass-frost, 0));
+  backdrop-filter: var(--filter-id) saturate(var(--glass-saturation, 1));
+  box-shadow: inset 0 0 2px 1px hsl(0 0% 100% / 0.38), inset 0 0 10px 4px hsl(0 0% 100% / 0.12), 0 10px 28px hsl(210 50% 5% / 0.1);
+}
+
+.glass-surface--fallback {
+  background: hsl(210 45% 45% / 0.24);
+  backdrop-filter: blur(12px) saturate(1.8) brightness(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.8) brightness(1.1);
+  border: 1px solid hsl(0 0% 100% / 0.3);
+  box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.3), 0 8px 32px hsl(210 50% 5% / 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  .glass-surface--svg { background: hsl(210 45% 12% / var(--glass-frost, 0)); box-shadow: inset 0 0 2px 1px hsl(0 0% 100% / 0.4), inset 0 0 10px 4px hsl(0 0% 100% / 0.14), 0 10px 28px hsl(210 50% 5% / 0.16); }
+  .glass-surface--fallback { background: hsl(210 45% 28% / 0.28); border-color: hsl(0 0% 100% / 0.22); }
+}

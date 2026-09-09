@@ -29,16 +29,18 @@ export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, q
 }) {
   return (
     <motion.header className="site-header" initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }}>
-      <a href="#discover" className="brand" onClick={(event) => { event.preventDefault(); onNavigate('discover') }} aria-label="拾光首页">
+      <a href="#discover" className="brand" onClick={(event) => { event.preventDefault(); onNavigate('discover') }} aria-label="拾光 Lumitime 与 NachoNeko 首页">
         <span className="brand-mark" aria-hidden="true">
           <span className="brand-mark-piece" />
           <span className="brand-mark-piece" />
           <span className="brand-mark-piece" />
         </span>
-        <span className="brand-lockup">
+        <span className="brand-lockup" aria-hidden="true">
           <span className="brand-name">拾光</span>
           <span className="brand-latin">Lumitime</span>
         </span>
+        <span className="brand-divider" aria-hidden="true" />
+        <span className="brand-signature" aria-hidden="true">NachoNeko</span>
       </a>
       <div className="header-search">
         <InputGroup className="glass compact-search-field">

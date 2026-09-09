@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import { ArrowUpRight, Check, Compass, ExternalLink, Keyboard, ShieldCheck, Sparkles } from 'lucide-react'
 import { AppIcon } from '@/components/discovery/app-icon'
 import { Badge } from '@/components/ui/badge'
@@ -12,18 +13,26 @@ import { categoryLabels, type Software } from '@/lib/software'
 import { cn } from '@/lib/utils'
 
 export function SoftwareDialog({ app, onClose }: { app: Software | null; onClose: () => void }) {
+  const previousApp = useRef<Software | null>(app)
+
+  useEffect(() => {
+    if (app) previousApp.current = app
+  }, [app])
+
+  const displayedApp = app ?? previousApp.current
+
   return (
     <Dialog open={Boolean(app)} onOpenChange={(open) => { if (!open) onClose() }}>
       <DialogContent className="glass-modal software-dialog">
-        {app && <>
+        {displayedApp && <>
           <DialogHeader>
-            <div className="detail-heading"><AppIcon icon={app.icon} large /><div className="detail-title-group"><DialogTitle>{app.name}</DialogTitle><DialogDescription>{categoryLabels[app.category]} · {app.pricing}</DialogDescription></div></div>
+            <div className="detail-heading"><AppIcon icon={displayedApp.icon} large /><div className="detail-title-group"><DialogTitle>{displayedApp.name}</DialogTitle><DialogDescription>{categoryLabels[displayedApp.category]} · {displayedApp.pricing}</DialogDescription></div></div>
           </DialogHeader>
-          <p className="detail-description">{app.detail}</p>
-          <div className="detail-tags">{app.tags.map((tag) => <Badge key={tag} variant="secondary">{tag}</Badge>)}</div>
+          <p className="detail-description">{displayedApp.detail}</p>
+          <div className="detail-tags">{displayedApp.tags.map((tag) => <Badge key={tag} variant="secondary">{tag}</Badge>)}</div>
           <Separator />
-          <div className="detail-platforms"><h3>支持平台</h3><div>{app.platforms.map((platform) => <span key={platform}><Check className="size-3.5" aria-hidden="true" />{platform}</span>)}</div></div>
-          <a href={app.url} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: 'lg' }), 'visit-website')}>前往官方网站<ArrowUpRight data-icon="inline-end" /></a>
+          <div className="detail-platforms"><h3>支持平台</h3><div>{displayedApp.platforms.map((platform) => <span key={platform}><Check className="size-3.5" aria-hidden="true" />{platform}</span>)}</div></div>
+          <a href={displayedApp.url} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ size: 'lg' }), 'visit-website')}>前往官方网站<ArrowUpRight data-icon="inline-end" /></a>
           <p className="detail-footnote"><ShieldCheck className="size-3.5" aria-hidden="true" />仅导航至官网，价格与可用性请以官方为准。</p>
         </>}
       </DialogContent>
@@ -48,7 +57,7 @@ export function SettingsDialog({ open, onOpenChange, dark, onDarkChange, animati
         <FieldGroup>
           <Field orientation="horizontal"><FieldContent><FieldLabel htmlFor="dark-mode">深色外观</FieldLabel><FieldDescription>安静的深蓝，陪伴专注时刻</FieldDescription></FieldContent><Switch id="dark-mode" checked={dark} onCheckedChange={onDarkChange} /></Field>
           <Field orientation="horizontal"><FieldContent><FieldLabel htmlFor="motion-setting">灵动效果</FieldLabel><FieldDescription>玻璃光感、按压回弹与 Dock 放大</FieldDescription></FieldContent><Switch id="motion-setting" checked={animations} onCheckedChange={onAnimationsChange} /></Field>
-          <Field orientation="horizontal"><FieldContent><FieldLabel htmlFor="scenery-setting">桌面网格</FieldLabel><FieldDescription>用克制的细线建立软件界面层次</FieldDescription></FieldContent><Switch id="scenery-setting" checked={scenery} onCheckedChange={onSceneryChange} /></Field>
+          <Field orientation="horizontal"><FieldContent><FieldLabel htmlFor="scenery-setting">景深背景</FieldLabel><FieldDescription>让玻璃折射出真实的光影层次</FieldDescription></FieldContent><Switch id="scenery-setting" checked={scenery} onCheckedChange={onSceneryChange} /></Field>
         </FieldGroup>
         <Separator />
         <p className="settings-note">设置仅在本次浏览生效；系统的“减少动态效果”偏好会优先受到尊重。</p>
