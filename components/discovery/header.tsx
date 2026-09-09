@@ -40,7 +40,17 @@ export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, q
           <span className="brand-latin">Lumitime</span>
         </span>
         <span className="brand-divider" aria-hidden="true" />
-        <span className="brand-signature" aria-hidden="true">NachoNeko</span>
+        <span className="brand-signature" aria-hidden="true">
+          {Array.from('NachoNeko').map((letter, index) => (
+            <span
+              key={`${letter}-${index}`}
+              className="brand-signature-letter"
+              style={{ animationDelay: `${1 + index * 0.1}s` }}
+            >
+              {letter}
+            </span>
+          ))}
+        </span>
       </a>
       <div className="header-search">
         <InputGroup className="glass compact-search-field">
