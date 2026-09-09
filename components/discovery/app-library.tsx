@@ -22,12 +22,22 @@ const categories = [
   { id: 'utilities', icon: ShieldCheck },
 ] as const
 
-function SoftwareTile({ app, index, onOpen, motionEnabled }: { app: Software; index: number; onOpen: (app: Software) => void; motionEnabled: boolean }) {
+type ViewMode = 'grid' | 'list'
+
+function SoftwareTile({ app, index, onOpen, motionEnabled, view }: { app: Software; index: number; onOpen: (app: Software) => void; motionEnabled: boolean; view: ViewMode }) {
   return (
     <motion.article
       className="software-item"
       initial={motionEnabled ? { opacity: 0, y: 20, scale: 0.9 } : false}
       animate={{ opacity: 1, y: 0, scale: 1 }}
+      variants={{
+        exit: (nextView: ViewMode) => view === 'list' && nextView === 'grid' && motionEnabled ? {
+          clipPath: ['inset(0% 0% 0% 0% round 25px)', 'inset(0% 0% 100% 0% round 25px)'],
+          opacity: [1, 1, 0],
+          y: [0, -2, -6],
+          transition: { duration: 0.24, times: [0, 0.78, 1], ease: [0.4, 0, 0.2, 1] },
+        } : {},
+      }}
       transition={{ delay: Math.min(index * 0.045, 0.35), type: 'spring', stiffness: 300, damping: 23 }}
     >
       <motion.button
@@ -54,7 +64,7 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
   onOpen: (app: Software) => void
   motionEnabled: boolean
 }) {
-  const [view, setView] = useState('grid')
+  const [view, setView] = useState<ViewMode>('grid')
   const [sort, setSort] = useState('featured')
   const [showAll, setShowAll] = useState(false)
   const filtered = useMemo(() => {
@@ -75,7 +85,7 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
         <div className="library-title-group"><h2 id="library-title">你的应用主场</h2><span className="library-count" aria-live="polite">{filtered.length} 款好工具，随心探索</span></div>
         <div className="library-actions">
           <label className="sort-control"><span className="sr-only">软件排序方式</span><select value={sort} onChange={(event) => setSort(event.target.value)}><option value="featured">精选排序</option><option value="name">名称排序</option></select><ChevronDown className="size-3.5" aria-hidden="true" /></label>
-          <ToggleGroup value={[view]} onValueChange={(values) => { if (values[0]) setView(values[0]) }} className="glass view-toggle" aria-label="显示方式">
+          <ToggleGroup value={[view]} onValueChange={(values) => { if (values[0]) setView(values[0] as ViewMode) }} className="glass view-toggle" aria-label="显示方式">
             <ToggleGroupItem value="grid" aria-label="网格视图"><LayoutGrid /></ToggleGroupItem>
             <ToggleGroupItem value="list" aria-label="列表视图"><List /></ToggleGroupItem>
           </ToggleGroup>
@@ -94,11 +104,29 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
         </GlassSurface>
       </div>
       {hasFilter && <div className="filter-summary"><span>{query ? `“${query}” 的搜索结果` : categoryLabels[category]}</span><Button variant="ghost" onClick={onClear}>清除筛选<X data-icon="inline-end" /></Button></div>}
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div key={`${category}-${query}-${sort}-${view}`} initial={motionEnabled ? { opacity: 0, y: 8, filter: 'blur(4px)' } : false} animate={{ opacity: 1, y: 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }} exit={{ opacity: 0, y: -6, filter: motionEnabled ? 'blur(4px)' : 'blur(0px)' }} transition={{ duration: motionEnabled ? 0.16 : 0 }}>
+      <AnimatePresence mode="wait" initial={false} custom={view}>
+        <motion.div
+          key={`${category}-${query}-${sort}-${view}`}
+          initial={motionEnabled ? { opacity: 0, y: 8, filter: 'blur(4px)' } : false}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+          variants={{
+            exit: (nextView: ViewMode) => view === 'list' && nextView === 'grid' && motionEnabled ? {
+              opacity: 0.999,
+              y: 0,
+              filter: 'blur(0px)',
+              transition: { duration: 0.42, staggerChildren: 0.025, staggerDirection: -1 },
+            } : {
+              opacity: 0,
+              y: -6,
+              filter: motionEnabled ? 'blur(4px)' : 'blur(0px)',
+              transition: { duration: motionEnabled ? 0.16 : 0 },
+            },
+          }}
+          exit="exit"
+        >
           {visibleApps.length ? (
             <div className={cn('software-grid', view === 'list' && 'software-list')}>
-              {visibleApps.map((app, index) => <SoftwareTile key={app.id} app={app} index={index} onOpen={onOpen} motionEnabled={motionEnabled} />)}
+              {visibleApps.map((app, index) => <SoftwareTile key={app.id} app={app} index={index} onOpen={onOpen} motionEnabled={motionEnabled} view={view} />)}
             </div>
           ) : (
             <Empty className="glass search-empty"><EmptyHeader><EmptyMedia variant="icon"><SearchX /></EmptyMedia><EmptyTitle>还没有找到这款好工具</EmptyTitle><EmptyDescription>换个关键词，或者看看其他分类，也许会有新的发现。</EmptyDescription></EmptyHeader><EmptyContent><Button variant="outline" onClick={onClear}>重新发现全部应用</Button></EmptyContent></Empty>
