@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-geist), var(--font-noto-sans-sc), -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-mono: var(--font-geist), monospace;
+  --font-sans: var(--font-noto-sans-sc), -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -137,11 +137,8 @@
 .brand-name { font-size: 20px; font-weight: 680; letter-spacing: -.3px; }
 .brand-latin { color: var(--muted-foreground); font-size: 10px; font-weight: 620; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
 .brand-divider { display: block; flex: 0 0 1px; width: 1px; height: 26px; margin-inline: -2px; background: linear-gradient(180deg, transparent, var(--muted-foreground) 18%, var(--muted-foreground) 82%, transparent); opacity: .52; transform: skewX(14deg); }
-.brand-signature { display: grid; flex: 0 0 45px; grid-template-columns: auto 17px; width: 45px; height: 30px; align-items: center; column-gap: 0; color: var(--foreground); }
-.brand-signature-stack { display: flex; min-width: 0; height: 24px; flex-direction: column; align-items: flex-end; justify-content: center; gap: 5px; }
-.brand-signature-line { display: block; color: var(--foreground); font-size: 8px; font-weight: 680; letter-spacing: .08em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
-.brand-signature-neko { color: var(--muted-foreground); letter-spacing: .2em; }
-.brand-signature-orbit { display: flex; width: 17px; height: 28px; margin-left: -1px; align-items: center; justify-content: center; color: var(--foreground); font-size: 27px; font-weight: 350; line-height: 1; transform: scaleX(.82); transform-origin: left center; }
+.brand-signature { position: relative; display: flex; flex: 0 0 68px; width: 68px; height: 30px; align-items: center; color: var(--foreground); font-family: var(--font-caveat), cursive; font-size: 21px; font-weight: 600; letter-spacing: -.055em; line-height: 1; white-space: nowrap; transform: rotate(-2deg) translateY(-1px); transform-origin: center; }
+.brand-signature::after { content: ''; position: absolute; right: 0; bottom: 1px; width: 56px; height: 7px; border-bottom: 1px solid currentColor; border-radius: 0 0 58% 42%; opacity: .42; transform: rotate(-3deg) skewX(-18deg); transform-origin: right center; }
 .main-navigation { display: flex; align-items: center; padding: 5px; border-radius: 999px; }
 .navigation-link { position: relative; isolation: isolate; display: flex; align-items: center; justify-content: center; gap: 7px; width: 102px; height: 38px; border-radius: 999px; font-size: 14px; color: var(--muted-foreground); transition: color .2s; }
 .navigation-link:hover, .navigation-link.is-active { color: var(--foreground); }

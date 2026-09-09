@@ -40,13 +40,7 @@ export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, q
           <span className="brand-latin">Lumitime</span>
         </span>
         <span className="brand-divider" aria-hidden="true" />
-        <span className="brand-signature" aria-hidden="true">
-          <span className="brand-signature-stack">
-            <span className="brand-signature-line">NACH</span>
-            <span className="brand-signature-line brand-signature-neko">NEK</span>
-          </span>
-          <span className="brand-signature-orbit">O</span>
-        </span>
+        <span className="brand-signature" aria-hidden="true">NachoNeko</span>
       </a>
       <div className="header-search">
         <InputGroup className="glass compact-search-field">
