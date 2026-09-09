@@ -51,9 +51,9 @@ export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, q
         <span className="brand-signature-group" aria-hidden="true">
           <span className="brand-divider" />
           <span className="brand-signature">
-            <svg className="brand-signature-svg" viewBox="0 0 72 30" focusable="false">
+            <svg className="brand-signature-svg" viewBox="0 0 76 30" focusable="false">
               <defs>
-                <mask id="brand-signature-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="72" height="30">
+                <mask id="brand-signature-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="76" height="30">
                   <path
                     className="brand-signature-mask-stroke"
                     transform="scale(.7 1)"
@@ -61,7 +61,7 @@ export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, q
                   />
                 </mask>
               </defs>
-              <foreignObject x="0" y="0" width="72" height="30" mask="url(#brand-signature-reveal)">
+              <foreignObject x="0" y="0" width="76" height="30" mask="url(#brand-signature-reveal)">
                 <span className="brand-signature-text">NachoNeko</span>
               </foreignObject>
             </svg>
