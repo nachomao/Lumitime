@@ -48,7 +48,7 @@ export function SettingsDialog({ open, onOpenChange, dark, onDarkChange, animati
         <FieldGroup>
           <Field orientation="horizontal"><FieldContent><FieldLabel htmlFor="dark-mode">深色外观</FieldLabel><FieldDescription>安静的深蓝，陪伴专注时刻</FieldDescription></FieldContent><Switch id="dark-mode" checked={dark} onCheckedChange={onDarkChange} /></Field>
           <Field orientation="horizontal"><FieldContent><FieldLabel htmlFor="motion-setting">灵动效果</FieldLabel><FieldDescription>玻璃光感、按压回弹与 Dock 放大</FieldDescription></FieldContent><Switch id="motion-setting" checked={animations} onCheckedChange={onAnimationsChange} /></Field>
-          <Field orientation="horizontal"><FieldContent><FieldLabel htmlFor="scenery-setting">桌面网格</FieldLabel><FieldDescription>用克制的细线建立软件界面层次</FieldDescription></FieldContent><Switch id="scenery-setting" checked={scenery} onCheckedChange={onSceneryChange} /></Field>
+          <Field orientation="horizontal"><FieldContent><FieldLabel htmlFor="scenery-setting">景深背景</FieldLabel><FieldDescription>让玻璃折射出真实的光影层次</FieldDescription></FieldContent><Switch id="scenery-setting" checked={scenery} onCheckedChange={onSceneryChange} /></Field>
         </FieldGroup>
         <Separator />
         <p className="settings-note">设置仅在本次浏览生效；系统的“减少动态效果”偏好会优先受到尊重。</p>
