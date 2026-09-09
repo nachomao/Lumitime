@@ -41,8 +41,11 @@ export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, q
         </span>
         <span className="brand-divider" aria-hidden="true" />
         <span className="brand-signature" aria-hidden="true">
-          <span className="brand-signature-line brand-signature-nacho">Nacho</span>
-          <span className="brand-signature-line brand-signature-neko">Neko</span>
+          <span className="brand-signature-monogram">N</span>
+          <span className="brand-signature-stack">
+            <span className="brand-signature-line brand-signature-nacho">ACHO</span>
+            <span className="brand-signature-line brand-signature-neko">EKO</span>
+          </span>
         </span>
       </a>
       <div className="header-search">
