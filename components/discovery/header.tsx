@@ -1,6 +1,6 @@
 'use client'
 
-import { type RefObject } from 'react'
+import { type RefObject, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { Command, Compass, LayoutGrid, Layers3, Moon, Search, SlidersHorizontal, Sun, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -27,8 +27,17 @@ export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, q
   onSearch: () => void
   inputRef: RefObject<HTMLInputElement | null>
 }) {
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const updateHeader = () => setIsScrolled(window.scrollY > 12)
+    updateHeader()
+    window.addEventListener('scroll', updateHeader, { passive: true })
+    return () => window.removeEventListener('scroll', updateHeader)
+  }, [])
+
   return (
-    <motion.header className="site-header" initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }}>
+    <motion.header className={cn('site-header', isScrolled && 'is-scrolled')} initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }}>
       <a href="#discover" className="brand" onClick={(event) => { event.preventDefault(); onNavigate('discover') }} aria-label="拾光 Lumitime 与 NachoNeko 首页">
         <span className="brand-mark" aria-hidden="true">
           <span className="brand-mark-piece" />
