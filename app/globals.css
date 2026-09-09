@@ -104,9 +104,12 @@
 .dark .wallpaper-image { opacity: .82; filter: brightness(.72) saturate(.92); }
 .dark .wallpaper-wash { background: linear-gradient(180deg, color-mix(in srgb, var(--ink) 60%, transparent) 0%, color-mix(in srgb, var(--ink) 28%, transparent) 36%, color-mix(in srgb, var(--ink) 42%, transparent) 100%); }
 .without-scenery .wallpaper-image, .without-scenery .wallpaper-wash { opacity: 0; }
-.page-container { max-width: 1248px; margin-inline: auto; padding-inline: 40px; padding-bottom: 112px; }
+.dialog-backdrop-effect { position: fixed; inset: 0; z-index: 40; pointer-events: none; opacity: 0; backdrop-filter: blur(15px); transform: translateZ(0); backface-visibility: hidden; will-change: opacity, backdrop-filter; transition: opacity .4s cubic-bezier(.16,1,.3,1); }
+.dialog-backdrop-effect.is-visible { opacity: 1; }
+.page-container { max-width: 1248px; margin-inline: auto; padding-inline: 40px; padding-bottom: 112px; transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .4s; transform-origin: 50% 35vh; will-change: transform, opacity; backface-visibility: hidden; }
+.page-container.app-is-open { transform: scale(.974); opacity: 0.92; }
 /* Paired prefixed declarations are dropped by the preview CSS compiler. */
-.glass { position: relative; background: linear-gradient(145deg, color-mix(in srgb, var(--snow) 9%, transparent), transparent 45%, color-mix(in srgb, var(--snow) 3%, transparent)), var(--glass); color: var(--foreground); border: 1px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px -1px var(--glass-light), inset 1px 0 1px -1px var(--glass-light), inset 0 -1px 1px -1px var(--glass-edge), 0 12px 30px -16px var(--shadow); backdrop-filter: blur(22px) saturate(1.65); }
+.glass { position: relative; background: linear-gradient(145deg, color-mix(in srgb, var(--snow) 9%, transparent), transparent 45%, color-mix(in srgb, var(--snow) 3%, transparent)), var(--glass); color: var(--foreground); border: 1px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px -1px var(--glass-light), inset 1px 0 1px -1px var(--glass-light), inset 0 -1px 1px -1px var(--glass-edge), 0 12px 30px -16px var(--shadow); backdrop-filter: blur(22px) saturate(1.65); will-change: backdrop-filter, transform; backface-visibility: hidden; }
 .skip-link { position: fixed; top: -80px; left: 20px; z-index: 100; border-radius: 12px; background: var(--surface); color: var(--foreground); padding: 12px 20px; }
 .skip-link:focus { top: 16px; }
 .site-header { display: flex; align-items: center; justify-content: space-between; min-height: 80px; position: relative; }
@@ -288,8 +291,8 @@
 .dock-library { background: linear-gradient(145deg,color-mix(in srgb,var(--blue) 80%,var(--snow)),color-mix(in srgb,var(--blue) 65%,var(--ink))); color: var(--snow); }
 .dock-divider { width: 1px; height: 34px; align-self: center; background: var(--glass-edge); }
 .home-indicator { display: none; }
-[data-slot='dialog-overlay'] { background: color-mix(in srgb,var(--ink) 32%,transparent); animation-duration: .32s; }
-.glass-modal[data-slot='dialog-content'] { max-width: min(480px,calc(100vw - 32px)); padding: 32px; border-radius: 38px; gap: 24px; background: linear-gradient(145deg,color-mix(in srgb,var(--snow) 9%,transparent),transparent), var(--popover); color: var(--foreground); border: 1px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px var(--glass-edge),0 30px 100px color-mix(in srgb,var(--ink) 55%,transparent); backdrop-filter: blur(45px) saturate(1.8); max-height: calc(100svh - 40px); overflow-y: auto; will-change: opacity, transform; animation-duration: .36s; animation-timing-function: cubic-bezier(.16,1,.3,1); }
+[data-slot='dialog-overlay'] { background: color-mix(in srgb,var(--ink) 23%,transparent); overflow: hidden; backface-visibility: hidden; will-change: opacity; touch-action: none; overscroll-behavior: contain; animation-duration: .4s; }
+.glass-modal[data-slot='dialog-content'] { max-width: min(480px,calc(100vw - 32px)); padding: 32px; border-radius: 38px; gap: 24px; background: linear-gradient(145deg,color-mix(in srgb,var(--snow) 9%,transparent),transparent), var(--popover); color: var(--foreground); border: 1px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px var(--glass-edge),0 30px 100px color-mix(in srgb,var(--ink) 55%,transparent); backdrop-filter: blur(45px) saturate(1.8); max-height: calc(100svh - 40px); overflow-y: auto; will-change: opacity, transform, backdrop-filter; backface-visibility: hidden; animation-duration: .42s; animation-timing-function: cubic-bezier(.16,1,.3,1); }
 .software-dialog[data-open] { animation-name: app-launch; }
 @keyframes app-launch { from { opacity: 0; transform: translateY(32px) scale(.82); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .glass-modal [data-slot='dialog-title'] { font-size: 25px; font-weight: 620; line-height: 1.4; letter-spacing: -.5px; }
