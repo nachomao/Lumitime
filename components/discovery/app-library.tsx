@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { categoryLabels, software, type Category, type Software } from '@/lib/software'
+import { GlassSurface } from '@/components/ui/glass-surface'
 import { cn } from '@/lib/utils'
 
 const categories = [
@@ -81,14 +82,16 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
         </div>
       </div>
       <div className="category-scroll">
-        <ToggleGroup value={[category]} onValueChange={(values) => { if (values[0]) { onCategoryChange(values[0] as Category); setShowAll(false) } }} className="glass category-toggle" aria-label="软件分类">
-          {categories.map(({ id, icon: Icon }) => (
-            <ToggleGroupItem key={id} value={id}>
-              {id === category && <motion.span className="category-indicator" layoutId="category-indicator" transition={{ type: 'spring', stiffness: 360, damping: 26 }} />}
-              <Icon data-icon="inline-start" /><span>{categoryLabels[id]}</span>
-            </ToggleGroupItem>
-          ))}
-        </ToggleGroup>
+        <GlassSurface className="category-glass-surface" width="max-content" height={48} borderRadius={24} displace={0.7} distortionScale={-140} redOffset={0} greenOffset={8} blueOffset={16} brightness={58} opacity={0.9} backgroundOpacity={0.06} saturation={1.18}>
+          <ToggleGroup value={[category]} onValueChange={(values) => { if (values[0]) { onCategoryChange(values[0] as Category); setShowAll(false) } }} className="category-toggle" aria-label="软件分类">
+            {categories.map(({ id, icon: Icon }) => (
+              <ToggleGroupItem key={id} value={id}>
+                {id === category && <motion.span className="category-indicator" layoutId="category-indicator" transition={{ type: 'spring', stiffness: 360, damping: 26 }} />}
+                <Icon data-icon="inline-start" /><span>{categoryLabels[id]}</span>
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroup>
+        </GlassSurface>
       </div>
       {hasFilter && <div className="filter-summary"><span>{query ? `“${query}” 的搜索结果` : categoryLabels[category]}</span><Button variant="ghost" onClick={onClear}>清除筛选<X data-icon="inline-end" /></Button></div>}
       <AnimatePresence mode="wait" initial={false}>
