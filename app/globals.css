@@ -185,6 +185,12 @@
 .widget-arrow { display: flex; align-items: center; justify-content: center; width: 25px; height: 25px; border-radius: 50%; background: color-mix(in srgb, var(--snow) 13%, transparent); border: 1px solid color-mix(in srgb, var(--snow) 29%, transparent); }
 .featured-app-art { position: absolute; inset: 0 0 0 48%; pointer-events: none; }
 .featured-app { position: absolute; }
+.featured-app-stage { position: relative; isolation: isolate; display: grid; }
+.featured-app-layer { display: block; grid-area: 1 / 1; will-change: clip-path; }
+.featured-app-particles { position: absolute; inset-inline: 0; top: 0; z-index: 3; height: 1px; }
+.featured-app-particle { position: absolute; top: 0; display: block; width: 4px; height: 4px; border-radius: 1px; background: color-mix(in srgb, var(--snow) 82%, transparent); box-shadow: 0 0 5px color-mix(in srgb, var(--snow) 30%, transparent); }
+.featured-app-particle:nth-child(3n) { width: 3px; height: 3px; border-radius: 50%; background: color-mix(in srgb, var(--primary) 68%, var(--snow)); }
+.featured-app-particle:nth-child(4n) { width: 2px; height: 5px; }
 .featured-app-0 { top: 18px; right: 20px; }
 .featured-app-1 { left: 0; top: 45px; }
 .featured-app-2 { right: 25px; bottom: -15px; }
