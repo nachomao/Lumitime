@@ -24,21 +24,20 @@ const categories = [
 
 type ViewMode = 'grid' | 'list'
 
-function SoftwareTile({ app, index, onOpen, motionEnabled, view }: { app: Software; index: number; onOpen: (app: Software) => void; motionEnabled: boolean; view: ViewMode }) {
+function SoftwareTile({ app, index, total, onOpen, motionEnabled }: { app: Software; index: number; total: number; onOpen: (app: Software) => void; motionEnabled: boolean }) {
+  const foldedState = { opacity: 0, y: 20, scale: 0.9 }
+  const springTransition = { type: 'spring' as const, stiffness: 300, damping: 23 }
+
   return (
     <motion.article
       className="software-item"
-      initial={motionEnabled ? { opacity: 0, y: 20, scale: 0.9 } : false}
+      initial={motionEnabled ? foldedState : false}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      variants={{
-        exit: (nextView: ViewMode) => view === 'list' && nextView === 'grid' && motionEnabled ? {
-          clipPath: ['inset(0% 0% 0% 0% round 25px)', 'inset(0% 0% 100% 0% round 25px)'],
-          opacity: [1, 1, 0],
-          y: [0, -2, -6],
-          transition: { duration: 0.24, times: [0, 0.78, 1], ease: [0.4, 0, 0.2, 1] },
-        } : {},
-      }}
-      transition={{ delay: Math.min(index * 0.045, 0.35), type: 'spring', stiffness: 300, damping: 23 }}
+      exit={motionEnabled ? {
+        ...foldedState,
+        transition: { ...springTransition, delay: Math.min((total - index - 1) * 0.045, 0.35) },
+      } : undefined}
+      transition={{ ...springTransition, delay: Math.min(index * 0.045, 0.35) }}
     >
       <motion.button
         type="button"
@@ -111,10 +110,10 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
           variants={{
             exit: (nextView: ViewMode) => view === 'list' && nextView === 'grid' && motionEnabled ? {
-              opacity: 0.999,
+              opacity: 1,
               y: 0,
               filter: 'blur(0px)',
-              transition: { duration: 0.42, staggerChildren: 0.025, staggerDirection: -1 },
+              transition: { when: 'afterChildren' },
             } : {
               opacity: 0,
               y: -6,
@@ -126,7 +125,7 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
         >
           {visibleApps.length ? (
             <div className={cn('software-grid', view === 'list' && 'software-list')}>
-              {visibleApps.map((app, index) => <SoftwareTile key={app.id} app={app} index={index} onOpen={onOpen} motionEnabled={motionEnabled} view={view} />)}
+              {visibleApps.map((app, index) => <SoftwareTile key={app.id} app={app} index={index} total={visibleApps.length} onOpen={onOpen} motionEnabled={motionEnabled} />)}
             </div>
           ) : (
             <Empty className="glass search-empty"><EmptyHeader><EmptyMedia variant="icon"><SearchX /></EmptyMedia><EmptyTitle>还没有找到这款好工具</EmptyTitle><EmptyDescription>换个关键词，或者看看其他分类，也许会有新的发现。</EmptyDescription></EmptyHeader><EmptyContent><Button variant="outline" onClick={onClear}>重新发现全部应用</Button></EmptyContent></Empty>
