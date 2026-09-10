@@ -349,8 +349,9 @@
 .settings-dialog [data-slot='field-content'] { gap: 7px; }
 .settings-dialog [data-slot='switch'] { margin-top: 5px; }
 .settings-note { font-size: 14px; line-height: 1.7; color: var(--muted-foreground); }
-  .info-mark { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 19px; color: var(--primary); background: var(--accent); }
-  .info-mark .info-brand-mark { color: var(--foreground); transform: scale(1.25); }
+.info-dialog[data-slot='dialog-content'] { --foreground: var(--ink); --muted-foreground: color-mix(in srgb,var(--ink) 68%,var(--slate)); --secondary-foreground: color-mix(in srgb,var(--ink) 84%,var(--slate)); --secondary: color-mix(in srgb,var(--ink) 8%,transparent); --accent: color-mix(in srgb,var(--blue) 18%,transparent); --border: color-mix(in srgb,var(--ink) 12%,transparent); background: linear-gradient(145deg,color-mix(in srgb,var(--snow) 96%,transparent),color-mix(in srgb,var(--snow) 78%,transparent)); color: var(--foreground); border-color: color-mix(in srgb,var(--snow) 88%,transparent); box-shadow: inset 0 1.5px 1px color-mix(in srgb,var(--snow) 92%,transparent),inset 0 -1px 1px color-mix(in srgb,var(--ink) 8%,transparent),0 30px 100px color-mix(in srgb,var(--ink) 42%,transparent); backdrop-filter: blur(45px) saturate(1.45) brightness(1.08); }
+.info-mark { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 19px; color: var(--primary); background: var(--accent); }
+.info-mark .info-brand-mark { color: var(--foreground); transform: scale(1.25); }
 .info-copy { display: flex; flex-direction: column; gap: 16px; font-size: 14px; color: var(--secondary-foreground); line-height: 1.8; }
 .help-items { display: flex; flex-direction: column; gap: 22px; }
 .help-items p { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.7; color: var(--secondary-foreground); }
