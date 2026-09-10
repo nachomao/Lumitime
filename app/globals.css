@@ -102,11 +102,14 @@
 .wallpaper-image { object-fit: cover; object-position: center 44%; opacity: .34; filter: brightness(1.24) saturate(.72); transition: opacity .65s ease, filter .65s ease; }
 .dark .wallpaper-image { opacity: .82; filter: brightness(.72) saturate(.92); }
 .without-scenery .wallpaper-image { opacity: 0; }
-.dialog-backdrop-effect { position: fixed; inset: 0; z-index: 40; pointer-events: none; visibility: hidden; opacity: 0; backdrop-filter: blur(15px) saturate(.45); transition: opacity .4s cubic-bezier(.16,1,.3,1), visibility 0s linear .4s; }
+.dialog-backdrop-effect { position: fixed; inset: 0; z-index: 40; pointer-events: none; visibility: hidden; opacity: 0; background: color-mix(in srgb, var(--background) 8%, transparent); backdrop-filter: blur(15px) saturate(.45); transition: opacity .4s cubic-bezier(.16,1,.3,1), visibility 0s linear .4s; }
 .dialog-backdrop-effect.is-visible { visibility: visible; opacity: 1; transition-delay: 0s; }
 .dialog-overlay-neutral { background: rgb(from var(--ink) r r r / .18); }
-.page-container { max-width: 1248px; margin-inline: auto; padding-inline: 40px; padding-bottom: 112px; transform-origin: 50% 35vh; transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .4s cubic-bezier(.22,1,.36,1); backface-visibility: hidden; }
-.page-container.dialog-is-open { transform: scale(.974); opacity: .92; }
+/* Never set opacity < 1 (or filter/mask) on .page-container: it would become a backdrop root and every
+   backdrop-filter inside would stop seeing the wallpaper. The 8% fade lives on .dialog-backdrop-effect instead.
+   will-change: transform keeps one stable compositing layer so the scale transition never re-rasterizes the page. */
+.page-container { max-width: 1248px; margin-inline: auto; padding-inline: 40px; padding-bottom: 112px; transform-origin: 50% 35vh; transition: transform .55s cubic-bezier(.22,1,.36,1); backface-visibility: hidden; will-change: transform; }
+.page-container.dialog-is-open { transform: scale(.974); }
 /* Paired prefixed declarations are dropped by the preview CSS compiler. */
 .glass { position: relative; background: linear-gradient(145deg, color-mix(in srgb, var(--snow) 9%, transparent), transparent 45%, color-mix(in srgb, var(--snow) 3%, transparent)), var(--glass); color: var(--foreground); border: 1px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px -1px var(--glass-light), inset 1px 0 1px -1px var(--glass-light), inset 0 -1px 1px -1px var(--glass-edge), 0 12px 30px -16px var(--shadow); backdrop-filter: blur(22px) saturate(1.65); }
 .skip-link { position: fixed; top: -80px; left: 20px; z-index: 100; border-radius: 12px; background: var(--surface); color: var(--foreground); padding: 12px 20px; }
