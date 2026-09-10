@@ -102,13 +102,15 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
           exit={motionEnabled ? view === 'list' ? { opacity: 1, y: 0, '--software-mask-position': '100%' } : { opacity: 0, y: -6 } : undefined}
           transition={view === 'list' ? listTransition : { duration: motionEnabled ? 0.1 : 0 }}
         >
-          {visibleApps.length ? (
-            <div className={cn('software-grid', view === 'list' && 'software-list')}>
-              {visibleApps.map((app) => <SoftwareTile key={app.id} app={app} onOpen={onOpen} motionEnabled={motionEnabled} />)}
-            </div>
-          ) : (
-            <Empty className="glass search-empty"><EmptyHeader><EmptyMedia variant="icon"><SearchX /></EmptyMedia><EmptyTitle>还没有找到这款好工具</EmptyTitle><EmptyDescription>换个关键词，或者看看其他分类，也许会有新的发现。</EmptyDescription></EmptyHeader><EmptyContent><Button variant="outline" onClick={onClear}>重新发现全部应用</Button></EmptyContent></Empty>
-          )}
+          <div className="software-transition-content">
+            {visibleApps.length ? (
+              <div className={cn('software-grid', view === 'list' && 'software-list')}>
+                {visibleApps.map((app) => <SoftwareTile key={app.id} app={app} onOpen={onOpen} motionEnabled={motionEnabled} />)}
+              </div>
+            ) : (
+              <Empty className="glass search-empty"><EmptyHeader><EmptyMedia variant="icon"><SearchX /></EmptyMedia><EmptyTitle>还没有找到这款好工具</EmptyTitle><EmptyDescription>换个关键词，或者看看其他分类，也许会有新的发现。</EmptyDescription></EmptyHeader><EmptyContent><Button variant="outline" onClick={onClear}>重新发现全部应用</Button></EmptyContent></Empty>
+            )}
+          </div>
           {view === 'list' && motionEnabled && (
             <motion.span
               className="software-edge-blur"
