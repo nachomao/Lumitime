@@ -77,8 +77,8 @@ export const software: Software[] = [
   {
     id: 'obsidian', name: 'Obsidian', icon: 'obsidian', category: 'productivity',
     description: '连接每个想法，构建第二大脑。',
-    detail: '以本地 Markdown 文件为基础的知识管理工具。通过双向链接和关系图谱连接笔记，逐渐形成属于自己的知识网络，文件始终掌握在自己手中。',
-    url: 'https://obsidian.md', platforms: ['macOS', 'Windows', 'Linux', 'iOS', 'Android'], pricing: '免费增值', tags: ['笔记', 'Markdown', '知识管理'],
+    detail: '以本地 Markdown 文件为基础的知识管理工具，个人与商业用途均可免费使用。通过双向链接和关系图谱连接笔记，文件始终掌握在自己手中；官方 Sync 与 Publish 属于可选付费服务。',
+    url: 'https://obsidian.md', platforms: ['macOS', 'Windows', 'Linux', 'iOS', 'Android'], pricing: '免费', tags: ['笔记', 'Markdown', '知识管理'],
   },
   {
     id: 'framer', name: 'Framer', icon: 'framer', category: 'design',

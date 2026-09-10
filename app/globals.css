@@ -102,9 +102,11 @@
 .wallpaper-image { object-fit: cover; object-position: center 44%; opacity: .34; filter: brightness(1.24) saturate(.72); transition: opacity .65s ease, filter .65s ease; }
 .dark .wallpaper-image { opacity: .82; filter: brightness(.72) saturate(.92); }
 .without-scenery .wallpaper-image { opacity: 0; }
-.dialog-backdrop-effect { position: fixed; inset: 0; z-index: 40; pointer-events: none; visibility: hidden; opacity: 0; backdrop-filter: blur(15px); transition: opacity .4s cubic-bezier(.16,1,.3,1), visibility 0s linear .4s; }
+.dialog-backdrop-effect { position: fixed; inset: 0; z-index: 40; pointer-events: none; visibility: hidden; opacity: 0; backdrop-filter: blur(15px) saturate(.45); transition: opacity .4s cubic-bezier(.16,1,.3,1), visibility 0s linear .4s; }
 .dialog-backdrop-effect.is-visible { visibility: visible; opacity: 1; transition-delay: 0s; }
-.page-container { max-width: 1248px; margin-inline: auto; padding-inline: 40px; padding-bottom: 112px; }
+.dialog-overlay-neutral { background: rgb(from var(--ink) r r r / .18); }
+.page-container { max-width: 1248px; margin-inline: auto; padding-inline: 40px; padding-bottom: 112px; transform-origin: 50% 35vh; transition: transform .55s cubic-bezier(.22,1,.36,1), opacity .4s cubic-bezier(.22,1,.36,1); backface-visibility: hidden; }
+.page-container.dialog-is-open { transform: scale(.974); opacity: .92; }
 /* Paired prefixed declarations are dropped by the preview CSS compiler. */
 .glass { position: relative; background: linear-gradient(145deg, color-mix(in srgb, var(--snow) 9%, transparent), transparent 45%, color-mix(in srgb, var(--snow) 3%, transparent)), var(--glass); color: var(--foreground); border: 1px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px -1px var(--glass-light), inset 1px 0 1px -1px var(--glass-light), inset 0 -1px 1px -1px var(--glass-edge), 0 12px 30px -16px var(--shadow); backdrop-filter: blur(22px) saturate(1.65); }
 .skip-link { position: fixed; top: -80px; left: 20px; z-index: 100; border-radius: 12px; background: var(--surface); color: var(--foreground); padding: 12px 20px; }
@@ -323,7 +325,7 @@
 .dock-library { background: linear-gradient(145deg,color-mix(in srgb,var(--blue) 80%,var(--snow)),color-mix(in srgb,var(--blue) 65%,var(--ink))); color: var(--snow); }
 .dock-divider { width: 1px; height: 34px; align-self: center; background: var(--glass-edge); }
 .home-indicator { display: none; }
-[data-slot='dialog-overlay'] { background: color-mix(in srgb,var(--ink) 23%,transparent); overflow: hidden; backface-visibility: hidden; will-change: opacity; touch-action: none; overscroll-behavior: contain; animation-duration: .4s; }
+  [data-slot='dialog-overlay'] { background: rgb(from var(--ink) r r r / .18); overflow: hidden; backface-visibility: hidden; will-change: opacity; touch-action: none; overscroll-behavior: contain; animation-duration: .4s; }
 .glass-modal[data-slot='dialog-content'] { max-width: min(480px,calc(100vw - 32px)); padding: 32px; border-radius: 38px; gap: 24px; background: linear-gradient(145deg,color-mix(in srgb,var(--snow) 9%,transparent),transparent), var(--popover); color: var(--foreground); border: 1px solid var(--glass-edge); box-shadow: inset 0 1.5px 1px var(--glass-edge),0 30px 100px color-mix(in srgb,var(--ink) 55%,transparent); backdrop-filter: blur(45px) saturate(1.8); max-height: calc(100svh - 40px); overflow-y: auto; will-change: opacity, transform, backdrop-filter; backface-visibility: hidden; animation-duration: .42s; animation-timing-function: cubic-bezier(.16,1,.3,1); }
 .software-dialog[data-open] { animation-name: app-launch; }
 @keyframes app-launch { from { opacity: 0; transform: translateY(32px) scale(.82); } to { opacity: 1; transform: translateY(0) scale(1); } }
@@ -349,7 +351,9 @@
 .settings-dialog [data-slot='field-content'] { gap: 7px; }
 .settings-dialog [data-slot='switch'] { margin-top: 5px; }
 .settings-note { font-size: 14px; line-height: 1.7; color: var(--muted-foreground); }
+.info-dialog[data-slot='dialog-content'] { --glass-neutral: rgb(from var(--snow) r r r); --foreground: var(--ink); --muted-foreground: color-mix(in srgb,var(--ink) 68%,var(--slate)); --secondary-foreground: color-mix(in srgb,var(--ink) 84%,var(--slate)); --secondary: color-mix(in srgb,var(--ink) 8%,transparent); --accent: color-mix(in srgb,var(--blue) 14%,var(--snow)); --border: color-mix(in srgb,var(--ink) 12%,transparent); background: linear-gradient(118deg,color-mix(in srgb,var(--glass-neutral) 38%,transparent),transparent 38%,color-mix(in srgb,var(--glass-neutral) 24%,transparent) 62%,transparent 82%),linear-gradient(145deg,color-mix(in srgb,var(--glass-neutral) 94%,transparent),color-mix(in srgb,var(--glass-neutral) 84%,transparent)); color: var(--foreground); border-color: color-mix(in srgb,var(--glass-neutral) 86%,transparent); box-shadow: inset 0 1.5px 1px color-mix(in srgb,var(--glass-neutral) 98%,transparent),inset 1px 0 1px color-mix(in srgb,var(--glass-neutral) 68%,transparent),inset 0 -1.5px 1px color-mix(in srgb,var(--ink) 9%,transparent),0 30px 100px color-mix(in srgb,var(--ink) 38%,transparent); backdrop-filter: blur(52px) saturate(0) brightness(1.08); }
 .info-mark { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 19px; color: var(--primary); background: var(--accent); }
+.info-mark .info-brand-mark { color: var(--foreground); transform: scale(1.25); }
 .info-copy { display: flex; flex-direction: column; gap: 16px; font-size: 14px; color: var(--secondary-foreground); line-height: 1.8; }
 .help-items { display: flex; flex-direction: column; gap: 22px; }
 .help-items p { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.7; color: var(--secondary-foreground); }

@@ -27,6 +27,7 @@ export function Discovery() {
   const inputRef = useRef<HTMLInputElement>(null)
   const systemReduceMotion = useReducedMotion()
   const motionEnabled = animations && !systemReduceMotion
+  const dialogOpen = Boolean(selectedApp || settingsOpen || info)
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark)
@@ -80,8 +81,8 @@ export function Discovery() {
         <div className="wallpaper" aria-hidden="true">
           <Image className="wallpaper-image" src="/images/picui-wallpaper.jpg" alt="" fill priority sizes="100vw" />
         </div>
-        <div className={cn('dialog-backdrop-effect', (selectedApp || settingsOpen || info) && 'is-visible')} aria-hidden="true" />
-        <div className="page-container">
+        <div className={cn('dialog-backdrop-effect', dialogOpen && 'is-visible')} aria-hidden="true" />
+        <div className={cn('page-container', dialogOpen && 'dialog-is-open')}>
           <Header section={section} onNavigate={navigate} dark={dark} onToggleTheme={() => setDark((value) => !value)} onSettings={() => setSettingsOpen(true)} query={query} onQueryChange={setQuery} onSearch={() => navigate('library')} inputRef={inputRef} />
           <main>
             <Hero />
