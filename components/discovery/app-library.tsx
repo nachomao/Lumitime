@@ -111,15 +111,20 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
               <Empty className="glass search-empty"><EmptyHeader><EmptyMedia variant="icon"><SearchX /></EmptyMedia><EmptyTitle>还没有找到这款好工具</EmptyTitle><EmptyDescription>换个关键词，或者看看其他分类，也许会有新的发现。</EmptyDescription></EmptyHeader><EmptyContent><Button variant="outline" onClick={onClear}>重新发现全部应用</Button></EmptyContent></Empty>
             )}
           </div>
-          {view === 'list' && motionEnabled && (
-            <motion.span
-              className="software-edge-blur"
+          {view === 'list' && motionEnabled && visibleApps.length > 0 && (
+            <motion.div
+              className="software-transition-blur-layer"
               aria-hidden="true"
-              initial={{ top: '0%', opacity: 0 }}
-              animate={{ top: '100%', opacity: [0, 0.9, 0.9, 0] }}
-              exit={{ top: '0%', opacity: [0, 0.9, 0.9, 0] }}
-              transition={{ duration: listTransition.duration, ease: 'linear', opacity: { times: [0, 0.12, 0.78, 1] } }}
-            />
+              inert
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 1, 0] }}
+              exit={{ opacity: [0, 1, 1, 0] }}
+              transition={{ duration: listTransition.duration, ease: 'linear', times: [0, 0.12, 0.8, 1] }}
+            >
+              <div className="software-grid software-list">
+                {visibleApps.map((app) => <SoftwareTile key={app.id} app={app} onOpen={onOpen} motionEnabled={false} />)}
+              </div>
+            </motion.div>
           )}
         </motion.div>
       </AnimatePresence>
