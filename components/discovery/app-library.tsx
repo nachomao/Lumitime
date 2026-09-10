@@ -24,21 +24,9 @@ const categories = [
 
 type ViewMode = 'grid' | 'list'
 
-function SoftwareTile({ app, index, total, onOpen, motionEnabled }: { app: Software; index: number; total: number; onOpen: (app: Software) => void; motionEnabled: boolean }) {
-  const foldedState = { opacity: 0, y: 20, scale: 0.9 }
-  const springTransition = { type: 'spring' as const, stiffness: 300, damping: 23 }
-
+function SoftwareTile({ app, onOpen, motionEnabled }: { app: Software; onOpen: (app: Software) => void; motionEnabled: boolean }) {
   return (
-    <motion.article
-      className="software-item"
-      initial={motionEnabled ? foldedState : false}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={motionEnabled ? {
-        ...foldedState,
-        transition: { ...springTransition, delay: Math.min((total - index - 1) * 0.045, 0.35) },
-      } : undefined}
-      transition={{ ...springTransition, delay: Math.min(index * 0.045, 0.35) }}
-    >
+    <article className="software-item">
       <motion.button
         type="button"
         className="software-tile"
@@ -51,7 +39,7 @@ function SoftwareTile({ app, index, total, onOpen, motionEnabled }: { app: Softw
         <span className="tile-copy"><h3>{app.name === 'Visual Studio Code' ? 'VS Code' : app.name}</h3><span className="tile-category">{categoryLabels[app.category]}</span><span className="tile-description">{app.description}</span></span>
       </motion.button>
       <div className="tile-extra"><Badge variant="secondary">{app.pricing}</Badge><a href={app.url} target="_blank" rel="noopener noreferrer" className="app-external-link" aria-label={`访问 ${app.name} 官网（新窗口）`}><ArrowUpRight className="size-4" aria-hidden="true" /></a></div>
-    </motion.article>
+    </article>
   )
 }
 
@@ -77,6 +65,7 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
   }, [category, query, sort])
   const visibleApps = showAll || category !== 'all' || query ? filtered : filtered.slice(0, 8)
   const hasFilter = category !== 'all' || Boolean(query)
+  const listTransition = { duration: 0.34, ease: [0.65, 0, 0.35, 1] as const }
 
   return (
     <motion.section id="library" className="library-section" aria-labelledby="library-title" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.44 }}>
@@ -103,32 +92,32 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
         </GlassSurface>
       </div>
       {hasFilter && <div className="filter-summary"><span>{query ? `“${query}” 的搜索结果` : categoryLabels[category]}</span><Button variant="ghost" onClick={onClear}>清除筛选<X data-icon="inline-end" /></Button></div>}
-      <AnimatePresence mode="wait" initial={false} custom={view}>
+      <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={`${category}-${query}-${sort}-${view}`}
-          initial={motionEnabled ? { opacity: 0, y: 8, filter: 'blur(4px)' } : false}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
-          variants={{
-            exit: (nextView: ViewMode) => view === 'list' && nextView === 'grid' && motionEnabled ? {
-              opacity: 1,
-              y: 0,
-              filter: 'blur(0px)',
-              transition: { when: 'afterChildren' },
-            } : {
-              opacity: 0,
-              y: -6,
-              filter: motionEnabled ? 'blur(4px)' : 'blur(0px)',
-              transition: { duration: motionEnabled ? 0.16 : 0 },
-            },
-          }}
-          exit="exit"
+          className="software-transition-panel"
+          data-list={view === 'list' ? 'true' : undefined}
+          initial={motionEnabled ? view === 'list' ? { opacity: 1, y: 0, '--software-mask-position': '100%' } : { opacity: 0, y: 8 } : false}
+          animate={view === 'list' && motionEnabled ? { opacity: 1, y: 0, '--software-mask-position': '0%' } : { opacity: 1, y: 0 }}
+          exit={motionEnabled ? view === 'list' ? { opacity: 1, y: 0, '--software-mask-position': '100%' } : { opacity: 0, y: -6 } : undefined}
+          transition={view === 'list' ? listTransition : { duration: motionEnabled ? 0.1 : 0 }}
         >
           {visibleApps.length ? (
             <div className={cn('software-grid', view === 'list' && 'software-list')}>
-              {visibleApps.map((app, index) => <SoftwareTile key={app.id} app={app} index={index} total={visibleApps.length} onOpen={onOpen} motionEnabled={motionEnabled} />)}
+              {visibleApps.map((app) => <SoftwareTile key={app.id} app={app} onOpen={onOpen} motionEnabled={motionEnabled} />)}
             </div>
           ) : (
             <Empty className="glass search-empty"><EmptyHeader><EmptyMedia variant="icon"><SearchX /></EmptyMedia><EmptyTitle>还没有找到这款好工具</EmptyTitle><EmptyDescription>换个关键词，或者看看其他分类，也许会有新的发现。</EmptyDescription></EmptyHeader><EmptyContent><Button variant="outline" onClick={onClear}>重新发现全部应用</Button></EmptyContent></Empty>
+          )}
+          {view === 'list' && motionEnabled && (
+            <motion.span
+              className="software-edge-blur"
+              aria-hidden="true"
+              initial={{ top: '0%', opacity: 0 }}
+              animate={{ top: '100%', opacity: [0, 0.9, 0.9, 0] }}
+              exit={{ top: '0%', opacity: [0, 0.9, 0.9, 0] }}
+              transition={{ duration: listTransition.duration, ease: 'linear', opacity: { times: [0, 0.12, 0.78, 1] } }}
+            />
           )}
         </motion.div>
       </AnimatePresence>
