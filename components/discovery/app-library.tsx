@@ -56,6 +56,7 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
 }) {
   const [view, setView] = useState('grid')
   const [sort, setSort] = useState('featured')
+  const [sortOpen, setSortOpen] = useState(false)
   const [showAll, setShowAll] = useState(false)
   const filtered = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase().replace(/工具$/u, '')
@@ -74,7 +75,43 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
       <div className="section-heading library-heading">
         <div className="library-title-group"><h2 id="library-title">你的应用主场</h2><span className="library-count" aria-live="polite">{filtered.length} 款好工具，随心探索</span></div>
         <div className="library-actions">
-          <label className="sort-control"><span className="sr-only">软件排序方式</span><select value={sort} onChange={(event) => setSort(event.target.value)}><option value="featured">精选排序</option><option value="name">名称排序</option></select><ChevronDown className="size-3.5" aria-hidden="true" /></label>
+          <div className="sort-control">
+            <Button
+              variant="ghost"
+              className="sort-trigger glass"
+              onClick={() => setSortOpen(!sortOpen)}
+              aria-expanded={sortOpen}
+              aria-label="软件排序方式"
+            >
+              <span>{sort === 'featured' ? '精选排序' : '名称排序'}</span>
+              <ChevronDown className="size-3.5" aria-hidden="true" />
+            </Button>
+            {sortOpen && (
+              <motion.div
+                className="sort-dropdown glass"
+                initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.15 }}
+              >
+                <button
+                  type="button"
+                  className={cn('sort-option', sort === 'featured' && 'is-active')}
+                  onClick={() => { setSort('featured'); setSortOpen(false) }}
+                >
+                  <span>精选排序</span>
+                  {sort === 'featured' && <Check className="size-4" />}
+                </button>
+                <button
+                  type="button"
+                  className={cn('sort-option', sort === 'name' && 'is-active')}
+                  onClick={() => { setSort('name'); setSortOpen(false) }}
+                >
+                  <span>名称排序</span>
+                  {sort === 'name' && <Check className="size-4" />}
+                </button>
+              </motion.div>
+            )}
+          </div>
           <ToggleGroup value={[view]} onValueChange={(values) => { if (values[0]) setView(values[0]) }} className="glass view-toggle" aria-label="显示方式">
             <ToggleGroupItem value="grid" aria-label="网格视图"><LayoutGrid /></ToggleGroupItem>
             <ToggleGroupItem value="list" aria-label="列表视图"><List /></ToggleGroupItem>

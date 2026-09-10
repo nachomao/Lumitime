@@ -121,7 +121,7 @@
 .compact-search-field[data-slot='input-group']::before { content: ''; position: absolute; inset: 1px; z-index: 0; pointer-events: none; border-radius: inherit; background: linear-gradient(112deg, color-mix(in srgb, var(--snow) 13%, transparent), transparent 34%, color-mix(in srgb, var(--snow) 7%, transparent) 66%, transparent); filter: blur(8px); opacity: 0; transform: translateX(-12px) scale(.94); transition: opacity .4s ease .08s, transform .72s cubic-bezier(.22,1,.36,1); }
 .compact-search-field[data-slot='input-group'] > [data-slot] { position: relative; z-index: 1; }
 .compact-search-field[data-slot='input-group']:hover,
-.compact-search-field[data-slot='input-group']:focus-within { width: 260px; background: color-mix(in srgb, var(--surface) 42%, transparent); border-color: var(--glass-light); box-shadow: inset 0 1px 1px var(--glass-light), 0 0 0 5px color-mix(in srgb, var(--snow) 9%, transparent), 0 10px 40px var(--shadow); transition-delay: 0s; }
+.compact-search-field[data-slot='input-group']:focus-within { width: 260px; background: var(--glass); border-color: var(--glass-light); box-shadow: inset 0 1px 1px var(--glass-light), 0 0 0 5px color-mix(in srgb, var(--snow) 9%, transparent), 0 10px 40px var(--shadow); transition-delay: 0s; }
 .compact-search-field [data-slot='input-group-control'] { height: 100%; max-width: 210px; font-size: 14px; color: var(--foreground); box-shadow: none; filter: blur(0); opacity: 1; transform: translateX(0); transition: max-width .62s cubic-bezier(.22,1,.36,1), padding .62s cubic-bezier(.22,1,.36,1), opacity .28s ease, filter .38s ease, transform .58s cubic-bezier(.22,1,.36,1); }
 .compact-search-field input::placeholder { color: transparent; }
 .compact-search-field [data-align='inline-start'] { padding-left: 16px; padding-right: 5px; transition: width .62s cubic-bezier(.22,1,.36,1), padding .62s cubic-bezier(.22,1,.36,1), transform .62s cubic-bezier(.22,1,.36,1); }
@@ -253,10 +253,15 @@
 .library-title-group { display: flex; align-items: center; gap: 14px; }
 .library-count { font-size: 14px; color: var(--muted-foreground); }
 .library-actions { display: flex; align-items: center; gap: 15px; }
-.sort-control { position: relative; display: flex; align-items: center; color: var(--muted-foreground); font-size: 14px; }
-.sort-control select { appearance: none; background: transparent; color: inherit; padding: 5px 23px 5px 5px; }
-.sort-control select option { background: var(--surface); color: var(--foreground); }
-.sort-control > svg { position: absolute; right: 4px; pointer-events: none; }
+.sort-control { position: relative; display: flex; align-items: center; }
+.sort-trigger { height: 34px; padding-inline: 14px; border-radius: 999px; gap: 8px; font-size: 14px; font-weight: 400; color: var(--foreground); }
+.sort-trigger[aria-expanded='true'] svg { transform: rotate(180deg); }
+.sort-dropdown { position: absolute; top: calc(100% + 8px); left: 0; z-index: 10; min-width: 140px; padding: 6px; border-radius: 16px; background: var(--glass); border: 1px solid var(--glass-edge); box-shadow: inset 0 1px 1px var(--glass-light), 0 12px 32px var(--shadow); backdrop-filter: blur(28px) saturate(1.6); }
+.sort-option { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 9px 12px; border-radius: 10px; font-size: 14px; color: var(--secondary-foreground); background: transparent; text-align: left; transition: background .2s, color .2s; }
+.sort-option:hover { background: color-mix(in srgb, var(--foreground) 8%, transparent); color: var(--foreground); }
+.sort-option.is-active { background: transparent !important; color: var(--foreground); font-weight: 500; }
+.sort-option.is-active:hover { background: color-mix(in srgb, var(--foreground) 6%, transparent); }
+.sort-option svg { color: var(--primary); }
 .view-toggle[data-slot='toggle-group'] { display: flex; gap: 2px; border-radius: 999px; padding: 3px; }
 .view-toggle [data-slot='toggle-group-item'] { width: 28px; height: 26px; min-width: 28px; padding: 0; border-radius: 50%; color: var(--muted-foreground); }
 .view-toggle [aria-pressed='true'] { background: color-mix(in srgb,var(--snow) 23%,transparent); color: var(--foreground); box-shadow: inset 0 1px 1px var(--glass-edge); }
