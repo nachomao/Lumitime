@@ -13,6 +13,7 @@ import { type Category, type Software } from '@/lib/software'
 import { cn } from '@/lib/utils'
 
 export function Discovery() {
+  // Search, filters, and dialogs each have their own small piece of state.
   const [query, setQuery] = useState('')
   const deferredQuery = useDeferredValue(query)
   const [category, setCategory] = useState<Category>('all')
@@ -23,11 +24,13 @@ export function Discovery() {
   const motionEnabled = !systemReduceMotion
   const dialogOpen = Boolean(selectedApp || info)
 
+  // Keep CSS transitions in step with the user's motion preference.
   useEffect(() => {
     document.documentElement.dataset.motion = motionEnabled ? 'full' : 'reduced'
   }, [motionEnabled])
 
   useEffect(() => {
+    // The shortcut only brings the search field into focus; AppLibrary handles filtering.
     const handleShortcut = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         if (event.isComposing || event.keyCode === 229 || selectedApp || info) return
@@ -41,6 +44,7 @@ export function Discovery() {
   }, [motionEnabled, selectedApp, info])
 
   function navigate(nextSection: 'discover' | 'library') {
+    // Keep section navigation and filter resets in one predictable place.
     if (nextSection === 'discover') {
       setQuery('')
       setCategory('all')
@@ -63,6 +67,7 @@ export function Discovery() {
         <div className="wallpaper" aria-hidden="true">
           <Image className="wallpaper-image" src="/images/picui-wallpaper.jpg" alt="" fill priority sizes="100vw" />
         </div>
+        {/* Soften the page behind dialogs while keeping the surrounding context visible. */}
         <div className={cn('dialog-backdrop-effect', dialogOpen && 'is-visible')} aria-hidden="true" />
         <div className={cn('page-container', dialogOpen && 'dialog-is-open')}>
           <Header onHome={() => navigate('discover')} query={query} onQueryChange={setQuery} onSearch={() => navigate('library')} inputRef={inputRef} />

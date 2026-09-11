@@ -59,6 +59,7 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
   const [sortOpen, setSortOpen] = useState(false)
   const [showAll, setShowAll] = useState(false)
   const filtered = useMemo(() => {
+    // A small bit of normalization keeps searches like "效率工具" pleasantly forgiving.
     const normalized = query.trim().toLocaleLowerCase().replace(/工具$/u, '')
     const results = software.filter((app) => {
       const categoryMatch = category === 'all' || app.category === category
@@ -67,6 +68,7 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
     })
     return sort === 'name' ? [...results].sort((a, b) => a.name.localeCompare(b.name)) : results
   }, [category, query, sort])
+  // Keep the first screen light, then let an explicit filter reveal the full library.
   const visibleApps = showAll || category !== 'all' || query ? filtered : filtered.slice(0, 8)
   const hasFilter = category !== 'all' || Boolean(query)
 
@@ -132,6 +134,7 @@ export function AppLibrary({ category, query, onCategoryChange, onClear, onOpen,
       </div>
       {hasFilter && <div className="filter-summary"><span>{query ? `“${query}” 的搜索结果` : categoryLabels[category]}</span><Button variant="ghost" onClick={onClear}>清除筛选<X data-icon="inline-end" /></Button></div>}
       <AnimatePresence mode="wait" initial={false}>
+        {/* Changing the key gives each result set a clean, readable transition. */}
         <motion.div key={`${category}-${query}-${sort}-${view}`} initial={motionEnabled ? { opacity: 0, y: 8, filter: 'blur(4px)' } : false} animate={{ opacity: 1, y: 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }} exit={{ opacity: 0, y: -6, filter: motionEnabled ? 'blur(4px)' : 'blur(0px)' }} transition={{ duration: motionEnabled ? 0.16 : 0 }}>
           {visibleApps.length ? (
             <div className={cn('software-grid', view === 'list' && 'software-list')}>

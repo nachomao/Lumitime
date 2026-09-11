@@ -27,6 +27,7 @@ export function GlassWidget({ children, className, label, onClick, motionEnabled
       whileTap={motionEnabled ? { scale: 0.965, y: 0 } : undefined}
       onPointerMove={(event) => {
         if (!motionEnabled || event.pointerType !== 'mouse') return
+        // Map the pointer position to a tiny tilt, just enough to make the glass feel alive.
         const bounds = event.currentTarget.getBoundingClientRect()
         const horizontal = (event.clientX - bounds.left) / bounds.width
         const vertical = (event.clientY - bounds.top) / bounds.height

@@ -61,6 +61,7 @@ export function GlassSurface({
   const gaussianBlurRef = useRef<SVGFEGaussianBlurElement>(null)
 
   const generateDisplacementMap = () => {
+    // Build the map from the measured size so the refraction follows the surface shape.
     const rect = containerRef.current?.getBoundingClientRect()
     const actualWidth = rect?.width || 400
     const actualHeight = rect?.height || 80
@@ -132,6 +133,7 @@ export function GlassSurface({
 
 function supportsSvgFilters(filterId: string) {
   if (typeof window === 'undefined' || typeof document === 'undefined') return false
+  // Safari and Firefox take a safer CSS fallback because SVG backdrop filters are inconsistent there.
   const isWebkit = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
   const isFirefox = /Firefox/.test(navigator.userAgent)
   if (isWebkit || isFirefox) return false

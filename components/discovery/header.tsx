@@ -17,6 +17,7 @@ export function Header({ onHome, query, onQueryChange, onSearch, inputRef }: {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
+    // A little extra contrast makes the floating header easier to read after scrolling.
     const updateHeader = () => setIsScrolled(window.scrollY > 12)
     updateHeader()
     window.addEventListener('scroll', updateHeader, { passive: true })

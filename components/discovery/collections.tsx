@@ -35,6 +35,7 @@ const PARTICLES = [
 ]
 
 function pickRandomIconGroup(previousIcons: string[]) {
+  // Excluding the previous group keeps the rotation feeling intentional, not repetitive.
   const candidates = FEATURED_ICON_LIBRARY.filter((icon) => !previousIcons.includes(icon))
 
   for (let index = candidates.length - 1; index > 0; index -= 1) {
@@ -55,6 +56,7 @@ function RotatingFeaturedApps({ motionEnabled }: { motionEnabled: boolean }) {
   }>({ current: INITIAL_FEATURED_ICONS, previous: null, cycle: 0 })
 
   useEffect(() => {
+    // Warm the icon cache before the first rotation so the artwork never blinks in late.
     FEATURED_ICON_LIBRARY.forEach((icon) => {
       const image = new window.Image()
       image.src = `/icons/${icon}.svg`
@@ -64,6 +66,7 @@ function RotatingFeaturedApps({ motionEnabled }: { motionEnabled: boolean }) {
   useEffect(() => {
     if (!motionEnabled) return
 
+    // The collection quietly changes every few seconds; reduced motion leaves it still.
     const interval = window.setInterval(() => {
       setIcons(({ current, cycle }) => ({
         current: pickRandomIconGroup(current),

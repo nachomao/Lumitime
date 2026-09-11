@@ -1,6 +1,7 @@
 export type Category = 'all' | 'productivity' | 'design' | 'ai' | 'development' | 'entertainment' | 'utilities'
 export type Platform = 'macOS' | 'Windows' | 'iOS' | 'Android' | 'Web' | 'Linux'
 
+// Keeping these values closed makes labels, filters, and cards agree at compile time.
 export interface Software {
   id: string
   name: string

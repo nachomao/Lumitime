@@ -12,6 +12,7 @@ import { categoryLabels, type Software } from '@/lib/software'
 import { cn } from '@/lib/utils'
 
 export function SoftwareDialog({ app, onClose }: { app: Software | null; onClose: () => void }) {
+  // Dialog keeps its content mounted during the closing animation, so remember the last app.
   const previousApp = useRef<Software | null>(app)
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export function SoftwareDialog({ app, onClose }: { app: Software | null; onClose
 }
 
 export function InfoDialog({ kind, onClose }: { kind: 'about' | 'help' | null; onClose: () => void }) {
+  // Keep the closing frame on the same panel instead of briefly showing the other dialog.
   const previousKind = useRef<'about' | 'help' | null>(kind)
 
   useEffect(() => {
