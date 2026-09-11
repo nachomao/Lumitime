@@ -123,9 +123,3 @@ export const software: Software[] = [
     url: 'https://www.cursor.com', platforms: ['macOS', 'Windows', 'Linux'], pricing: '免费增值', tags: ['AI 编程', '代码编辑', '开发'],
   },
 ]
-
-export const collections = [
-  { id: 'daily', label: '编辑精选', title: '让日常，轻盈一点。', description: '少一点繁琐，多一点专注。', category: 'productivity' as Category, icons: ['notion', 'raycast', 'linear'], count: 4 },
-  { id: 'creative', label: '灵感工具箱', title: '好创意，值得被看见。', description: '从脑海中的一闪，到眼前的惊艳。', category: 'design' as Category, icons: ['figma', 'framer', 'canva'], count: 3 },
-  { id: 'intelligence', label: 'AI 新可能', title: '你的下一位灵感搭子。', description: '释放想象，把不可能变成可能。', category: 'ai' as Category, icons: ['openai', 'claude', 'perplexity'], count: 3 },
-]

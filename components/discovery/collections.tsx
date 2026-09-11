@@ -5,8 +5,9 @@ import { motion } from 'motion/react'
 import { ArrowUpRight, ChevronRight, Palette, Sparkles, WandSparkles } from 'lucide-react'
 import { AppIcon } from '@/components/discovery/app-icon'
 import { GlassWidget } from '@/components/discovery/glass-widget'
-import { collections, software, type Category } from '@/lib/software'
+import { software, type Category } from '@/lib/software'
 
+const PRODUCTIVITY_APP_COUNT = software.filter((app) => app.category === 'productivity').length
 const FEATURED_ICON_LIBRARY = Array.from(new Set(software.map((app) => app.icon)))
 const INITIAL_FEATURED_ICONS = ['linear', 'notion', 'raycast']
 const WIPE_TRANSITION = { duration: 1.15, ease: [0.65, 0, 0.35, 1] as const }
@@ -144,7 +145,7 @@ export function Collections({ onSelect, motionEnabled }: { onSelect: (category: 
           <div className="collection-copy">
             <span className="collection-eyebrow"><Sparkles className="size-4" aria-hidden="true" />编辑精选</span>
             <h3 className="featured-widget-title">让日常，<br />轻盈一点。</h3>
-            <span className="collection-explore">{collections[0].count} 款效率好物<span className="widget-arrow"><ArrowUpRight className="size-4" aria-hidden="true" /></span></span>
+            <span className="collection-explore">{PRODUCTIVITY_APP_COUNT} 款效率好物<span className="widget-arrow"><ArrowUpRight className="size-4" aria-hidden="true" /></span></span>
           </div>
           <RotatingFeaturedApps motionEnabled={motionEnabled} />
         </GlassWidget>
