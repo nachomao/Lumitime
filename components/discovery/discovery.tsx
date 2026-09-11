@@ -72,7 +72,7 @@ export function Discovery() {
           </main>
           <motion.footer className="page-footer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.65 }}>
             <div className="footer-brand"><Compass className="size-4" aria-hidden="true" /><span>拾光</span><span className="footer-divider">·</span><span>用好工具，留住好时光。</span></div>
-            <div className="footer-links"><Button variant="ghost" onClick={() => setInfo('about')}>关于拾光</Button><Button variant="ghost" onClick={() => window.open('https://nekohashizuku.github.io', '_blank')}>喵喵的小窝</Button><Button variant="ghost" onClick={() => setInfo('help')}>使用说明</Button></div>
+            <div className="footer-links"><Button variant="ghost" onClick={() => setInfo('about')}>关于拾光</Button><Button variant="ghost" onClick={() => window.open('https://maojiu.cc', '_blank')}>喵喵的小窝</Button><Button variant="ghost" onClick={() => setInfo('help')}>使用说明</Button></div>
           </motion.footer>
         </div>
         <SoftwareDialog app={selectedApp} onClose={() => setSelectedApp(null)} />

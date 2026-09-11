@@ -39,7 +39,13 @@ export function SoftwareDialog({ app, onClose }: { app: Software | null; onClose
 }
 
 export function InfoDialog({ kind, onClose }: { kind: 'about' | 'help' | null; onClose: () => void }) {
-  const isAbout = kind === 'about'
+  const previousKind = useRef<'about' | 'help' | null>(kind)
+
+  useEffect(() => {
+    if (kind) previousKind.current = kind
+  }, [kind])
+
+  const isAbout = (kind ?? previousKind.current) === 'about'
   return (
     <Dialog open={Boolean(kind)} onOpenChange={(open) => { if (!open) onClose() }}>
       <DialogContent className="glass-modal info-dialog">
