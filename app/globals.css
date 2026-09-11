@@ -41,7 +41,7 @@
   --blue: #64b5ff;
   --featured-ink: #071e3b;
   --teal: #74e1de;
-  --brand-accent: #e4b568;
+  --brand-accent: var(--blue);
   color-scheme: light;
   --background: color-mix(in srgb, var(--snow) 90%, var(--slate));
   --foreground: var(--ink);
