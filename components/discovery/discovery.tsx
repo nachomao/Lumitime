@@ -7,7 +7,7 @@ import { Compass } from 'lucide-react'
 import { Header, type Section } from '@/components/discovery/header'
 import { Collections } from '@/components/discovery/collections'
 import { AppLibrary } from '@/components/discovery/app-library'
-import { InfoDialog, SoftwareDialog } from '@/components/discovery/dialogs'
+import { InfoDialog, SettingsDialog, SoftwareDialog } from '@/components/discovery/dialogs'
 import { Button } from '@/components/ui/button'
 import { type Category, type Software } from '@/lib/software'
 import { cn } from '@/lib/utils'
@@ -16,12 +16,22 @@ export function Discovery() {
   const [query, setQuery] = useState('')
   const deferredQuery = useDeferredValue(query)
   const [category, setCategory] = useState<Category>('all')
+  const [section, setSection] = useState<Section>('discover')
+  const [dark, setDark] = useState(true)
+  const [animations, setAnimations] = useState(true)
+  const [scenery, setScenery] = useState(true)
+  const [settingsOpen, setSettingsOpen] = useState(false)
   const [info, setInfo] = useState<'about' | 'help' | null>(null)
   const [selectedApp, setSelectedApp] = useState<Software | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const systemReduceMotion = useReducedMotion()
-  const motionEnabled = !systemReduceMotion
-  const dialogOpen = Boolean(selectedApp || info)
+  const motionEnabled = animations && !systemReduceMotion
+  const dialogOpen = Boolean(selectedApp || settingsOpen || info)
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', dark)
+    return () => document.documentElement.classList.remove('dark')
+  }, [dark])
 
   useEffect(() => {
     document.documentElement.dataset.motion = motionEnabled ? 'full' : 'reduced'
@@ -30,7 +40,7 @@ export function Discovery() {
   useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
-        if (event.isComposing || event.keyCode === 229 || selectedApp || info) return
+        if (event.isComposing || event.keyCode === 229 || settingsOpen || selectedApp || info) return
         event.preventDefault()
         window.scrollTo({ top: 0, behavior: motionEnabled ? 'smooth' : 'instant' })
         inputRef.current?.focus({ preventScroll: true })
@@ -38,9 +48,10 @@ export function Discovery() {
     }
     document.addEventListener('keydown', handleShortcut)
     return () => document.removeEventListener('keydown', handleShortcut)
-  }, [motionEnabled, selectedApp, info])
+  }, [motionEnabled, settingsOpen, selectedApp, info])
 
   function navigate(nextSection: Section) {
+    setSection(nextSection)
     if (nextSection === 'discover') {
       setQuery('')
       setCategory('all')
@@ -56,16 +67,22 @@ export function Discovery() {
     navigate('library')
   }
 
+  function quickSearch(term: string) {
+    setQuery(term)
+    setCategory('all')
+    navigate('library')
+  }
+
   return (
     <MotionConfig reducedMotion={motionEnabled ? 'never' : 'always'} transition={{ type: 'spring', stiffness: 300, damping: 28 }}>
-      <div id="discover" className="discovery-page">
+      <div id="discover" className={cn('discovery-page', !scenery && 'without-scenery')}>
         <a className="skip-link" href="#library">跳转到软件库</a>
         <div className="wallpaper" aria-hidden="true">
           <Image className="wallpaper-image" src="/images/picui-wallpaper.jpg" alt="" fill priority sizes="100vw" />
         </div>
         <div className={cn('dialog-backdrop-effect', dialogOpen && 'is-visible')} aria-hidden="true" />
         <div className={cn('page-container', dialogOpen && 'dialog-is-open')}>
-          <Header onNavigate={navigate} query={query} onQueryChange={setQuery} onSearch={() => navigate('library')} inputRef={inputRef} />
+          <Header section={section} onNavigate={navigate} dark={dark} onToggleTheme={() => setDark((value) => !value)} onSettings={() => setSettingsOpen(true)} query={query} onQueryChange={setQuery} onSearch={() => navigate('library')} inputRef={inputRef} />
           <main>
             <Collections onSelect={selectCollection} motionEnabled={motionEnabled} />
             <AppLibrary category={category} query={deferredQuery} onCategoryChange={setCategory} onClear={() => { setQuery(''); setCategory('all') }} onOpen={setSelectedApp} motionEnabled={motionEnabled} />
@@ -76,6 +93,7 @@ export function Discovery() {
           </motion.footer>
         </div>
         <SoftwareDialog app={selectedApp} onClose={() => setSelectedApp(null)} />
+        <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} dark={dark} onDarkChange={setDark} animations={animations} onAnimationsChange={setAnimations} scenery={scenery} onSceneryChange={setScenery} />
         <InfoDialog kind={info} onClose={() => setInfo(null)} />
       </div>
     </MotionConfig>

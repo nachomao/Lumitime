@@ -1,15 +1,27 @@
 'use client'
 
 import { type RefObject, useEffect, useState } from 'react'
-import { motion } from 'motion/react'
-import { Search, X } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
+import { Command, Compass, LayoutGrid, Layers3, Moon, Search, SlidersHorizontal, Sun, X } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group'
 import { cn } from '@/lib/utils'
 
 export type Section = 'discover' | 'library' | 'collections'
 
-export function Header({ onNavigate, query, onQueryChange, onSearch, inputRef }: {
+const navigation = [
+  { id: 'discover' as const, label: '发现', icon: Compass },
+  { id: 'library' as const, label: '软件库', icon: LayoutGrid },
+  { id: 'collections' as const, label: '精选集', icon: Layers3 },
+]
+
+export function Header({ section, onNavigate, dark, onToggleTheme, onSettings, query, onQueryChange, onSearch, inputRef }: {
+  section: Section
   onNavigate: (section: Section) => void
+  dark: boolean
+  onToggleTheme: () => void
+  onSettings: () => void
   query: string
   onQueryChange: (query: string) => void
   onSearch: () => void
