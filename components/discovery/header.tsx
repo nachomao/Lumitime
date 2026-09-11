@@ -3,6 +3,7 @@
 import { type RefObject, useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import { Search, X } from 'lucide-react'
+import { BrandMark } from '@/components/discovery/brand-mark'
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group'
 import { cn } from '@/lib/utils'
 
@@ -25,11 +26,7 @@ export function Header({ onHome, query, onQueryChange, onSearch, inputRef }: {
   return (
     <motion.header className={cn('site-header', isScrolled && 'is-scrolled')} initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }}>
       <a href="#discover" className="brand" onClick={(event) => { event.preventDefault(); onHome() }} aria-label="拾光 Lumitime 与 NachoNeko 首页">
-        <span className="brand-mark" aria-hidden="true">
-          <span className="brand-mark-piece" />
-          <span className="brand-mark-piece" />
-          <span className="brand-mark-piece" />
-        </span>
+        <BrandMark />
         <span className="brand-lockup" aria-hidden="true">
           <span className="brand-name">拾光</span>
           <span className="brand-latin">Lumitime</span>
