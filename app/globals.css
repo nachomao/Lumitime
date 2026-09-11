@@ -180,24 +180,6 @@
 .round-control { border-radius: 50%; }
 .round-control span { display: flex; align-items: center; }
 .appearance-divider[data-slot='separator'] { align-self: center; height: 16px; margin-inline: 3px; }
-.hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding-block: 6px 19px; }
-.hero-copy { padding-bottom: 16px; }
-.hero h1 { font-size: clamp(36px,4vw,50px); font-weight: 630; line-height: 1.3; letter-spacing: -2.3px; text-shadow: 0 3px 24px color-mix(in srgb, var(--background) 10%, transparent); }
-.hero h1 span { color: var(--foreground); }
-.hero-copy p { padding-top: 7px; font-size: 15px; line-height: 1.5; color: var(--secondary-foreground); letter-spacing: 1px; }
-.search-area { width: 100%; max-width: 580px; }
-.search-field[data-slot='input-group'] { height: 53px; border-radius: 999px; background: var(--glass); color: var(--foreground); box-shadow: inset 0 1.5px 1px -1px var(--glass-light), inset 1px 0 1px -1px var(--glass-light), 0 8px 24px -10px var(--shadow); transition: background .3s, box-shadow .3s, transform .3s; }
-.search-field[data-slot='input-group']:focus-within { background: color-mix(in srgb, var(--surface) 42%, transparent); border-color: var(--glass-light); box-shadow: inset 0 1px 1px var(--glass-light), 0 0 0 5px color-mix(in srgb, var(--snow) 9%, transparent), 0 10px 40px var(--shadow); transform: scale(1.015); }
-.search-field [data-slot='input-group-control'] { height: 100%; font-size: 15px; color: var(--foreground); box-shadow: none; }
-.search-field input::placeholder { color: var(--muted-foreground); }
-.search-field [data-align='inline-start'] { padding-left: 21px; padding-right: 5px; }
-.search-field [data-align='inline-start'] > svg { width: 20px; height: 20px; color: var(--secondary-foreground); }
-.search-field [data-align='inline-end'] { padding-right: 15px; }
-.search-shortcut { display: flex; align-items: center; gap: 3px; font-size: 14px; height: 26px; padding-inline: 7px; border: 1px solid var(--glass-edge); border-radius: 8px; color: var(--muted-foreground); background: var(--secondary); }
-.search-shortcut > svg { width: 13px; height: 13px; }
-.popular-searches { display: flex; align-items: center; justify-content: center; gap: 9px; padding-top: 10px; font-size: 14px; color: var(--muted-foreground); }
-.keyword-button[data-slot='button'] { height: 25px; border-radius: 999px; font-size: 14px; font-weight: 400; color: var(--secondary-foreground); padding-inline: 8px; }
-.keyword-button svg { opacity: .7; }
 .collections-section { scroll-margin-top: 26px; }
 .section-heading { display: flex; align-items: center; justify-content: space-between; padding-bottom: 14px; }
 .section-heading h2 { font-size: 18px; font-weight: 580; letter-spacing: .2px; }
@@ -398,7 +380,6 @@
   .page-container { padding-inline: 24px; }
   .site-header { min-height: 86px; }
   .navigation-link { width: 85px; }
-  .hero h1 { font-size: 46px; }
   .collections-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .collection-card { flex: 0 0 47%; height: 206px; scroll-snap-align: center; }
   .collection-copy { padding: 20px 25px; }
@@ -422,16 +403,6 @@
   .compact-search-field[data-slot='input-group']:focus-within { width: 100%; max-width: 170px; }
   .main-navigation { display: none; }
   .appearance-controls { padding: 3px; }
-  .hero { padding-block: 24px 28px; }
-  .hero h1 { font-size: 36px; line-height: 1.4; letter-spacing: -1.8px; }
-  .hero-copy { padding-bottom: 22px; }
-  .hero-copy p { font-size: 14px; letter-spacing: .2px; padding-top: 11px; }
-  .search-field[data-slot='input-group'] { height: 53px; }
-  .search-field [data-slot='input-group-control'] { font-size: 16px; }
-  .search-field [data-align='inline-start'] { padding-left: 17px; }
-  .search-shortcut { display: none; }
-  .popular-searches { gap: 2px; padding-top: 12px; }
-  .keyword-button[data-slot='button'] { padding-inline: 7px; }
   .section-heading { padding-bottom: 14px; }
   .section-heading h2 { font-size: 18px; }
   .section-note { font-size: 14px; }
@@ -488,9 +459,6 @@
 @media (max-width: 370px) {
   .page-container { padding-inline: 17px; }
   .collections-grid, .category-scroll { margin-inline: -17px; padding-inline: 17px; }
-  .hero h1 { font-size: 32px; }
-  .hero-copy p { letter-spacing: 0; }
-  .popular-searches > span { display: none; }
   .section-note { font-size: 14px; max-width: 165px; }
   .tile-icon-wrap .app-icon { width: 56px; height: 56px; }
   .dock-app { width: 38px !important; height: 38px !important; }

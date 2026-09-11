@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { MotionConfig, motion, useReducedMotion } from 'motion/react'
 import { Compass } from 'lucide-react'
 import { Header, type Section } from '@/components/discovery/header'
-import { Hero } from '@/components/discovery/hero'
 import { Collections } from '@/components/discovery/collections'
 import { AppLibrary } from '@/components/discovery/app-library'
 import { InfoDialog, SettingsDialog, SoftwareDialog } from '@/components/discovery/dialogs'
@@ -85,7 +84,6 @@ export function Discovery() {
         <div className={cn('page-container', dialogOpen && 'dialog-is-open')}>
           <Header section={section} onNavigate={navigate} dark={dark} onToggleTheme={() => setDark((value) => !value)} onSettings={() => setSettingsOpen(true)} query={query} onQueryChange={setQuery} onSearch={() => navigate('library')} inputRef={inputRef} />
           <main>
-            <Hero />
             <Collections onSelect={selectCollection} motionEnabled={motionEnabled} />
             <AppLibrary category={category} query={deferredQuery} onCategoryChange={setCategory} onClear={() => { setQuery(''); setCategory('all') }} onOpen={setSelectedApp} motionEnabled={motionEnabled} />
           </main>
