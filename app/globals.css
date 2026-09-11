@@ -41,6 +41,7 @@
   --blue: #64b5ff;
   --featured-ink: #071e3b;
   --teal: #74e1de;
+  --brand-accent: var(--blue);
   color-scheme: light;
   --background: color-mix(in srgb, var(--snow) 90%, var(--slate));
   --foreground: var(--ink);
@@ -152,20 +153,20 @@
 .brand-mark { display: grid; flex-shrink: 0; grid-template-columns: 7px 14px; grid-template-rows: repeat(2, 10px); gap: 4px; width: 25px; height: 24px; color: var(--foreground); }
 .brand-mark-piece { display: block; border-radius: 3px; background: currentColor; transition: transform .28s cubic-bezier(.22,1,.36,1), opacity .28s ease; }
 .brand-mark-piece:first-child { grid-row: 1 / 3; border-radius: 4px; }
-.brand-mark-piece:nth-child(2) { background: var(--primary); }
+.brand-mark-piece:nth-child(2) { background: color-mix(in srgb, var(--brand-accent) 76%, var(--foreground)); }
 .brand-mark-piece:nth-child(3) { opacity: .46; }
 .brand:hover .brand-mark-piece:nth-child(2) { transform: translateX(2px); }
 .brand:hover .brand-mark-piece:nth-child(3) { transform: translateX(-2px); opacity: .72; }
 .brand-lockup { display: flex; flex-direction: column; gap: 3px; line-height: 1; }
 .brand-name { font-size: 20px; font-weight: 680; letter-spacing: -.3px; }
-.brand-latin { color: var(--muted-foreground); font-size: 10px; font-weight: 620; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
+.brand-latin { color: color-mix(in srgb, var(--brand-accent) 76%, var(--foreground)); font-size: 10px; font-weight: 620; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
 .brand-signature-group { display: flex; align-items: center; gap: 11px; margin-left: -5px; transform: scale(1.08); transform-origin: left center; }
 .brand-divider { display: block; flex: 0 0 1px; width: 1px; height: 26px; margin-inline: -2px; background: linear-gradient(180deg, transparent, var(--muted-foreground) 18%, var(--muted-foreground) 82%, transparent); opacity: .52; transform: skewX(14deg); transform-origin: center top; animation: brand-divider-write .48s cubic-bezier(.65,0,.35,1) .42s both; }
 .brand-signature { position: relative; display: flex; flex: 0 0 72px; width: 72px; height: 30px; align-items: center; color: var(--foreground); transform: rotate(-2deg) translateY(-1px); transform-origin: center; }
 .brand-signature-svg { display: block; width: 76px; height: 30px; overflow: visible; }
 .brand-signature-text { display: flex; width: 76px; height: 30px; align-items: center; color: var(--foreground); font-family: var(--font-caveat), cursive; font-size: 21px; font-weight: 600; letter-spacing: -.055em; line-height: 1; white-space: nowrap; }
 .brand-signature-mask-stroke { fill: none; stroke: white; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 423; stroke-dashoffset: 423; vector-effect: non-scaling-stroke; animation: brand-signature-write 1.85s linear .98s forwards; }
-.brand-signature::after { content: ''; position: absolute; right: 0; bottom: 1px; width: 56px; height: 7px; border-bottom: 1px solid currentColor; border-radius: 0 0 58% 42%; opacity: .42; transform: rotate(-3deg) skewX(-18deg) scaleX(0); transform-origin: left center; animation: brand-signature-flourish .36s cubic-bezier(.65,0,.35,1) 2.78s forwards; }
+.brand-signature::after { content: ''; position: absolute; right: 0; bottom: 1px; width: 56px; height: 7px; border-bottom: 1px solid currentColor; border-radius: 0 0 58% 42%; opacity: .58; transform: rotate(-3deg) skewX(-18deg) scaleX(0); transform-origin: left center; animation: brand-signature-flourish .36s cubic-bezier(.65,0,.35,1) 2.78s forwards; }
 @keyframes brand-divider-write { from { opacity: 0; transform: skewX(14deg) scaleY(0); } to { opacity: .52; transform: skewX(14deg) scaleY(1); } }
 @keyframes brand-signature-write { from { stroke-dashoffset: 423; } to { stroke-dashoffset: 0; } }
 @keyframes brand-signature-flourish { from { transform: rotate(-3deg) skewX(-18deg) scaleX(0); } to { transform: rotate(-3deg) skewX(-18deg) scaleX(1); } }
