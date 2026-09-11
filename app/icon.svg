@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>拾光</title>
+  <rect width="64" height="64" rx="16" fill="#101216" />
+  <rect x="10" y="12" width="14" height="40" rx="5" fill="#f7f7f8" />
+  <rect x="30" y="12" width="24" height="16" rx="5" fill="#f7f7f8" />
+  <rect x="30" y="36" width="24" height="16" rx="5" fill="#a4a8b0" />
+</svg>
