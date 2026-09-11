@@ -96,6 +96,8 @@
   button, input, select, a { touch-action: manipulation; }
   button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid var(--primary); outline-offset: 5px; }
   ::selection { background: var(--primary); color: var(--primary-foreground); }
+  html { scrollbar-width: none; }
+  html::-webkit-scrollbar { display: none; width: 0; height: 0; }
 }
 
 .discovery-page { min-height: 100svh; position: relative; isolation: isolate; }
